@@ -5,6 +5,8 @@ using PatStuff;
 [RequireComponent(typeof(Camera))]
 public class HUD : MonoBehaviour
 {
+	#region Variables
+	
 	public UIProgressBar xpBar;
 	public SpriteText levelText;
 	
@@ -18,8 +20,16 @@ public class HUD : MonoBehaviour
 	
 	public UIButton friendButton;
 	
+	private Camera myCam;
+	
+	#endregion
+	
+	#region Init
+	
 	public void Init(Player player)
 	{
+		myCam = GetComponent(typeof(Camera)) as Camera;
+		
 		xpBar.Value = player.Stats.GetXPPercentage;
 		levelText.Text = player.Stats.Level.ToString();
 		
@@ -42,6 +52,20 @@ public class HUD : MonoBehaviour
 		friendButton.AddInputDelegate(FriendButtonClickedDelegate);
 	}
 	
+	#endregion
+	
+	#region Mathods
+	
+	public void Hide()
+	{
+		myCam.enabled = false;
+	}
+	
+	public void Show()
+	{
+		myCam.enabled = true;
+	}
+	
 	void CoinButtonClickedDelegate(ref POINTER_INFO pointer)
 	{
 		if (pointer.evt == GameValues.defaultInputEvent)	
@@ -57,4 +81,6 @@ public class HUD : MonoBehaviour
 			ScreenLog.AddMessage("Friend Button Clicked", ScreenLogType.Warning);
 		}
 	}
+	
+	#endregion
 }

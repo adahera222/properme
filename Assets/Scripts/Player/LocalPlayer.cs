@@ -31,7 +31,7 @@ public class LocalPlayer : Player, ISave
 	public List<Item_Buff> ActiveBuffs{ get{ return activeBuffs; } }
 	
 	#endregion
-	
+	//done
 	#region Init
 	
 	protected override void Awake()
@@ -120,7 +120,7 @@ public class LocalPlayer : Player, ISave
 	}
 	
 	#endregion
-	
+	//done
 	#region Update
 	
 	//this will be called every second
@@ -131,7 +131,7 @@ public class LocalPlayer : Player, ISave
 	}
 	
 	#endregion
-	
+	//done
 	#region Methods
 	
 	public void OnApplicationQuit()
@@ -153,7 +153,7 @@ public class LocalPlayer : Player, ISave
 	}
 	
 	#endregion
-	
+	//dpme
 	#region Excercise
 	
 	/// <summary>
@@ -465,7 +465,7 @@ public class LocalPlayer : Player, ISave
 	}
 	
 	#endregion
-	
+	//done
 	#region Consumable
 	
 	/// <summary>
@@ -607,6 +607,7 @@ public class LocalPlayer : Player, ISave
 	
 	#endregion
 	
+	//done
 	#region Modifiers
 	
 	public enum PlayerStatModifierType
@@ -861,7 +862,7 @@ public class LocalPlayer : Player, ISave
 			stats.MuscleGroups.IncreaseExcercisesDone(this, MuscleGroup.Quads, MuscleGroup.Back, MuscleGroup.Biceps, MuscleGroup.Glutes, MuscleGroup.Hamstring, MuscleGroup.Abs);
 		
 		f.y += 40;
-		
+		/*
 		if (GUI.Button(f, MuscleGroup.Quads + " " + stats.MuscleGroups.QuadExcercisesDone))
 			stats.MuscleGroups.IncreaseExcercisesDone(this, MuscleGroup.Quads);
 		
@@ -892,7 +893,7 @@ public class LocalPlayer : Player, ISave
 		
 		
 		
-		
+		*/
 		
 		
 		

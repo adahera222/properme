@@ -209,8 +209,7 @@ public class PlayerStats : ISave, ILoad
 		//Secondary
 		PlayerPrefs.SetFloat(GetSavePrefix + StringExtensions.GetVariableName(() => fatigue), fatigue);
 		PlayerPrefs.SetFloat(GetSavePrefix + StringExtensions.GetVariableName(() => hunger), hunger);
-		
-		muscleGroups.SaveData();
+
 		
 		//Challenges
 		PlayerPrefs.SetInt(GetSavePrefix + StringExtensions.GetVariableName(() => soloChallengeDeadliftRecord), soloChallengeDeadliftRecord);
@@ -229,8 +228,7 @@ public class PlayerStats : ISave, ILoad
 		//Secondary
 		fatigue = PlayerPrefs.GetFloat(GetSavePrefix + StringExtensions.GetVariableName(() => fatigue), GameValues.fatigueMax / 2);
 		hunger = PlayerPrefs.GetFloat(GetSavePrefix + StringExtensions.GetVariableName(() => hunger), GameValues.hungerMin);
-		
-		muscleGroups.LoadData();
+
 		
 		//Challenges
 		soloChallengeDeadliftRecord = PlayerPrefs.GetInt(GetSavePrefix + StringExtensions.GetVariableName(() => soloChallengeDeadliftRecord), GameValues.deadliftWeightMin);

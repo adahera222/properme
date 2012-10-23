@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<UserContainer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <playerName>Jon Smith</playerName>
+  <userStats>
+    <lastQuitTime>0001-01-01T00:00:00</lastQuitTime>
+    <level>0</level>
+    <age>0</age>
+    <xP>0</xP>
+    <stamina>0</stamina>
+    <strength>0</strength>
+    <fatigue>0</fatigue>
+    <hunger>0</hunger>
+    <muscleGroups>
+      <quadExcercisesDone>0</quadExcercisesDone>
+      <backExcercisesDone>0</backExcercisesDone>
+      <bicepExcercisesDone>0</bicepExcercisesDone>
+      <gluteExcercisesDone>0</gluteExcercisesDone>
+      <hamstringExcercisesDone>0</hamstringExcercisesDone>
+      <abExcercisesDone>0</abExcercisesDone>
+    </muscleGroups>
+    <soloChallengeDeadliftRecord>0</soloChallengeDeadliftRecord>
+    <soloCompetitionDeadliftRecord>0</soloCompetitionDeadliftRecord>
+  </userStats>
+  <userAssets>
+    <allItems />
+  </userAssets>
+</UserContainer>

@@ -52,7 +52,7 @@ public class ISerializableObjectBase : MonoBehaviour
 		RenameToType();
 	}
 	
-	void RenameToType()
+	protected void RenameToType()
 	{
 		gameObject.name = this.GetType().ToString();
 	}

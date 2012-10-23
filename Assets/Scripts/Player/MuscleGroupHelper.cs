@@ -15,30 +15,19 @@ public enum MuscleGroup
 }
 
 [System.Serializable]
-public class MuscleGroupHelper : ISave, ILoad
+public class MuscleGroupHelper
 {
 	#region Varialbes
 	
 	/// Just to shorten save and load stuff
 	string GetSavePrefix{ get{ return SystemInfo.deviceUniqueIdentifier + "_" + this.GetType().ToString() + "_"; } }
 	
-	private int quadExcercisesDone;
-    public int QuadExcercisesDone { get { return quadExcercisesDone; } }
-	
-	private int backExcercisesDone;
-    public int BackExcercisesDone { get { return backExcercisesDone; } }
-	
-	private int bicepExcercisesDone;
-    public int BicepExcercisesDone { get { return bicepExcercisesDone; } }
-	
-	private int gluteExcercisesDone;
-    public int GluteExcercisesDone { get { return gluteExcercisesDone; } }
-	
-	private int hamstringExcercisesDone;
-    public int HamstringExcercisesDone { get { return hamstringExcercisesDone; } }
-	
-	private int abExcercisesDone;
-    public int AbExcercisesDone { get { return abExcercisesDone; } }
+	public int quadExcercisesDone;
+	public int backExcercisesDone;
+	public int bicepExcercisesDone;
+	public int gluteExcercisesDone;
+	public int hamstringExcercisesDone;
+	public int abExcercisesDone;
 	
 	#endregion
 	
@@ -78,7 +67,8 @@ public class MuscleGroupHelper : ISave, ILoad
 		
 		CheckForStrengthIncrease(player);
 		
-		SaveLoadHelper.Save(this);
+		//SaveLoadHelper.Save(this);
+		//TODO SAVE
 	}
 	
 	public bool CheckForStrengthIncrease(Player player)
@@ -144,30 +134,6 @@ public class MuscleGroupHelper : ISave, ILoad
 			player.Stats.IncrementStrength();
 		
 		return returnVal;
-	}
-	
-	#endregion
-	
-	#region ISaveLoad
-	
-	public void SaveData()
-	{
-		PlayerPrefs.SetInt(GetSavePrefix + StringExtensions.GetVariableName(() => quadExcercisesDone), quadExcercisesDone);
-		PlayerPrefs.SetInt(GetSavePrefix + StringExtensions.GetVariableName(() => backExcercisesDone), backExcercisesDone);
-		PlayerPrefs.SetInt(GetSavePrefix + StringExtensions.GetVariableName(() => bicepExcercisesDone), bicepExcercisesDone);
-		PlayerPrefs.SetInt(GetSavePrefix + StringExtensions.GetVariableName(() => gluteExcercisesDone), gluteExcercisesDone);
-		PlayerPrefs.SetInt(GetSavePrefix + StringExtensions.GetVariableName(() => hamstringExcercisesDone), hamstringExcercisesDone);
-		PlayerPrefs.SetInt(GetSavePrefix + StringExtensions.GetVariableName(() => abExcercisesDone), abExcercisesDone);
-	}
-	
-	public void LoadData()
-	{
-		quadExcercisesDone = PlayerPrefs.GetInt(GetSavePrefix + StringExtensions.GetVariableName(() => quadExcercisesDone), 0);
-		backExcercisesDone = PlayerPrefs.GetInt(GetSavePrefix + StringExtensions.GetVariableName(() => backExcercisesDone), 0);
-		bicepExcercisesDone = PlayerPrefs.GetInt(GetSavePrefix + StringExtensions.GetVariableName(() => bicepExcercisesDone), 0);
-		gluteExcercisesDone = PlayerPrefs.GetInt(GetSavePrefix + StringExtensions.GetVariableName(() => gluteExcercisesDone), 0);
-		hamstringExcercisesDone = PlayerPrefs.GetInt(GetSavePrefix + StringExtensions.GetVariableName(() => hamstringExcercisesDone), 0);
-		abExcercisesDone = PlayerPrefs.GetInt(GetSavePrefix + StringExtensions.GetVariableName(() => abExcercisesDone), 0);
 	}
 	
 	#endregion

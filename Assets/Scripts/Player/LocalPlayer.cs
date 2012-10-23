@@ -6,6 +6,7 @@ using PatStuff;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using JsonFx.Json;
 
 public class LocalPlayer : Player, ISave
 {
@@ -956,7 +957,7 @@ public class LocalPlayer : Player, ISave
 		
 		if (GUI.Button(c, "DELETEALLDATA"))
 		{
-			GridBlockValues.I.DeleteXMLFromServer();
+			GridBlockValues.I.DeleteFileFromServer();
 			
 			PlayerPrefs.DeleteAll();
 			

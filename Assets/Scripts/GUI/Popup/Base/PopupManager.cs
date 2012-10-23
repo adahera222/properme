@@ -13,7 +13,8 @@ public class PopupManager : TSingleton<PopupManager>
 	
 	#region Init
 	
-	public override void Awake()
+	
+	protected override void Awake()
 	{
 		base.Awake();
 		

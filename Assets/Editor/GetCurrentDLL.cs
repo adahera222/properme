@@ -5,10 +5,10 @@ using PatStuffEditor;
 
 public sealed class GetCurrentDLL
 {
-	private static string patStuffLocation = "/Users/PatSluth/Documents/New Unity Projects/PatUnityClassLibraries/PatStuff/PatStuff/bin/PatStuff.dll";
+	private static string patStuffLocation = "/Users/PatSluth/UnityClassLibraries/PatStuff/PatStuff/bin/PatStuff.dll";
 	private static string pluginFolderLocation = Application.dataPath + "/Plugins";
 	
-	private static string patStuffEditorLocation = "/Users/PatSluth/Documents/New Unity Projects/PatUnityClassLibraries/PatStuffEditor/PatStuffEditor/bin/PatStuffEditor.dll";
+	private static string patStuffEditorLocation = "/Users/PatSluth/UnityClassLibraries/PatStuffEditor/PatStuffEditor/bin/PatStuffEditor.dll";
 	private static string editorFolderLocation = Application.dataPath + "/Editor";
 	
 	[MenuItem("Pat/Get Current DLLS")]

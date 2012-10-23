@@ -7,6 +7,7 @@ using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
 using PatStuff;
+using JsonFx.Json;
 
 [CustomEditor(typeof(AgeProgressionValues))]
 public class AgeProgressionValuesInspector : ISerializableObjectInspectorBase
@@ -38,34 +39,36 @@ public class AgeProgressionValuesInspector : ISerializableObjectInspectorBase
 			val.itemContainer.ageProgressionItems = new List<AgeProgressionItem>();
 	}
 	
-	public override void DownloadXMLFromServer()
+	public override void DownloadFileFromServer()
 	{
-		val.DownloadXMLFromServer<AgeProgressionValuesContainer>(null);
+		val.DownloadFileFromServer<AgeProgressionValuesContainer>(null);
 	}
 	
-	public override void UploadXMLToServer()
+	public override void UploadFileToServer()
 	{
-		val.UploadXMLToServer<AgeProgressionValuesContainer>(null);
+		val.UploadFileToServer<AgeProgressionValuesContainer>(null);
 	}
 	
-	public override void ReadFromLocalXML()
+	protected override void OnReadLocalFileConfirmed(string loadPath)
 	{
-		string loadPath = EditorUtility.OpenFilePanel("Open XML", Application.dataPath + "/XMLFiles/", "xml");
-			
 		if (File.Exists(loadPath) == true)
 		{
-			val.itemContainer = XMLSerializer<AgeProgressionValuesContainer>.Deserialize(new StreamReader(loadPath).ReadToEnd());
+			string text = new StreamReader(loadPath).ReadToEnd();
+			
+			if (val.fileType == XMLOrJson._XML)
+				val.itemContainer = XMLSerializer<AgeProgressionValuesContainer>.Deserialize(text);
+			else
+				val.itemContainer = JsonFx.Json.JsonReader.Deserialize<AgeProgressionValuesContainer>(text);
 		}
-		else
-			if (loadPath != "")
-				PatStuff.ScreenLog.AddMessage("ERROR! File at " + loadPath + " does not exist", ScreenLogType.Error);
 	}
 	
-	public override void SaveToLocalXML()
+	protected override void OnSaveFileConfirmed (string savePath)
 	{
-		string savePath = EditorUtility.SaveFilePanel("Export To XML", Application.dataPath + "/XMLFiles/", val.GetType().ToString(), "xml");//Application.dataPath + "/StrengthProgresionValues.xml";
+		if (val.fileType == XMLOrJson._XML)
+			FileHelper.SaveStringToPath(savePath, XMLSerializer<AgeProgressionValuesContainer>.Serialize(val.itemContainer));
+		else
+			FileHelper.SaveStringToPath(savePath, JsonFx.Json.JsonWriter.Serialize(val.itemContainer));
 		
-		FileHelper.SaveStringToPath(savePath, XMLSerializer<AgeProgressionValuesContainer>.Serialize(val.itemContainer));
 		AssetDatabase.Refresh();
 	}
 	

@@ -3,6 +3,7 @@ using System.Collections;
 using PatStuff;
 using System;
 using System.Collections.Generic;
+using JsonFx.Json;
 
 public class Player : MonoBehaviour, ILoad
 {

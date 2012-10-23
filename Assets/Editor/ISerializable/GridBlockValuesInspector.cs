@@ -38,39 +38,36 @@ public class GridBlockValuesInspector : ISerializableObjectInspectorBase
 			val.itemContainer.gridBlockItems = new List<GridBlockItem>(0);
 	}
 	
-	public override void DownloadXMLFromServer()
+	public override void DownloadFileFromServer()
 	{
-		val.DownloadXMLFromServer<GridBlockValuesContainer>(null);
+		val.DownloadFileFromServer<GridBlockValuesContainer>(null);
 	}
 	
-	public override void UploadXMLToServer()
+	public override void UploadFileToServer()
 	{
-		val.UploadXMLToServer<GridBlockValuesContainer>(null);
+		val.UploadFileToServer<GridBlockValuesContainer>(null);
 	}
 	
-	public override void ReadFromLocalXML()
+	protected override void OnReadLocalFileConfirmed(string loadPath)
 	{
-		string loadPath = EditorUtility.OpenFilePanel("Open XML", Application.dataPath + "/XMLFiles/", "xml");
-			
 		if (File.Exists(loadPath) == true)
 		{
-			XmlSerializer serializer = new XmlSerializer(typeof(GridBlockValuesContainer));
-			FileStream stream = new FileStream(loadPath, FileMode.Open);
-			var container = serializer.Deserialize(stream) as GridBlockValuesContainer;
-			stream.Close();
+			string text = new StreamReader(loadPath).ReadToEnd();
 			
-			val.itemContainer = container;
+			if (val.fileType == XMLOrJson._XML)
+				val.itemContainer = XMLSerializer<GridBlockValuesContainer>.Deserialize(text);
+			else
+				val.itemContainer = JsonFx.Json.JsonReader.Deserialize<GridBlockValuesContainer>(text);
 		}
-		else
-			if (loadPath != "")
-				PatStuff.ScreenLog.AddMessage("ERROR! File at " + loadPath + " does not exist", ScreenLogType.Error);
 	}
 	
-	public override void SaveToLocalXML()
+	protected override void OnSaveFileConfirmed (string savePath)
 	{
-		string savePath = EditorUtility.SaveFilePanel("Export To XML", Application.dataPath + "/XMLFiles/", val.GetType().ToString(), "xml");//Application.dataPath + "/StrengthProgresionValues.xml";
-			
-		FileHelper.SaveStringToPath(savePath, XMLSerializer<GridBlockValuesContainer>.Serialize(val.itemContainer));
+		if (val.fileType == XMLOrJson._XML)
+			FileHelper.SaveStringToPath(savePath, XMLSerializer<GridBlockValuesContainer>.Serialize(val.itemContainer));
+		else
+			FileHelper.SaveStringToPath(savePath, JsonFx.Json.JsonWriter.Serialize(val.itemContainer));
+		
 		AssetDatabase.Refresh();
 	}
 	

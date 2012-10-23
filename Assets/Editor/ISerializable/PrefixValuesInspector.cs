@@ -38,39 +38,36 @@ public class PrefixValuesInspector : ISerializableObjectInspectorBase
 			val.itemContainer.prefixItems = new List<PrefixItem>();
 	}
 	
-	public override void DownloadXMLFromServer()
+	public override void DownloadFileFromServer()
 	{
-		val.DownloadXMLFromServer<PrefixValuesContainer>(null);
+		val.DownloadFileFromServer<PrefixValuesContainer>(null);
 	}
 	
-	public override void UploadXMLToServer()
+	public override void UploadFileToServer()
 	{
-		val.UploadXMLToServer<PrefixValuesContainer>(null);
+		val.UploadFileToServer<PrefixValuesContainer>(null);
 	}
 	
-	public override void ReadFromLocalXML()
+	protected override void OnReadLocalFileConfirmed(string loadPath)
 	{
-		string loadPath = EditorUtility.OpenFilePanel("Open XML", Application.dataPath + "/XMLFiles/", "xml");
-			
 		if (File.Exists(loadPath) == true)
 		{
-			XmlSerializer serializer = new XmlSerializer(typeof(PrefixValuesContainer));
-			FileStream stream = new FileStream(loadPath, FileMode.Open);
-			var container = serializer.Deserialize(stream) as PrefixValuesContainer;
-			stream.Close();
+			string text = new StreamReader(loadPath).ReadToEnd();
 			
-			val.itemContainer = container;
+			if (val.fileType == XMLOrJson._XML)
+				val.itemContainer = XMLSerializer<PrefixValuesContainer>.Deserialize(text);
+			else
+				val.itemContainer = JsonFx.Json.JsonReader.Deserialize<PrefixValuesContainer>(text);
 		}
-		else
-			if (loadPath != "")
-				PatStuff.ScreenLog.AddMessage("ERROR! File at " + loadPath + " does not exist", ScreenLogType.Error);
 	}
 	
-	public override void SaveToLocalXML()
+	protected override void OnSaveFileConfirmed (string savePath)
 	{
-		string savePath = EditorUtility.SaveFilePanel("Export To XML", Application.dataPath + "/XMLFiles/", val.GetType().ToString(), "xml");//Application.dataPath + "/StrengthProgresionValues.xml";
-			
-		FileHelper.SaveStringToPath(savePath, XMLSerializer<PrefixValuesContainer>.Serialize(val.itemContainer));
+		if (val.fileType == XMLOrJson._XML)
+			FileHelper.SaveStringToPath(savePath, XMLSerializer<PrefixValuesContainer>.Serialize(val.itemContainer));
+		else
+			FileHelper.SaveStringToPath(savePath, JsonFx.Json.JsonWriter.Serialize(val.itemContainer));
+		
 		AssetDatabase.Refresh();
 	}
 	

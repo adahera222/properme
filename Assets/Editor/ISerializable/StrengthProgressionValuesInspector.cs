@@ -40,39 +40,36 @@ public class StrengthProgressionValuesInspector : ISerializableObjectInspectorBa
 			val.itemContainer.strengthProgression = new List<StrengthProgressionItem>();
 	}
 	
-	public override void DownloadXMLFromServer()
+	public override void DownloadFileFromServer()
 	{
-		val.DownloadXMLFromServer<StrengthProgressionValuesContainer>(null);
+		val.DownloadFileFromServer<StrengthProgressionValuesContainer>(null);
 	}
 	
-	public override void UploadXMLToServer()
+	public override void UploadFileToServer()
 	{
-		val.UploadXMLToServer<StrengthProgressionValuesContainer>(null);
+		val.UploadFileToServer<StrengthProgressionValuesContainer>(null);
 	}
 	
-	public override void ReadFromLocalXML()
+	protected override void OnReadLocalFileConfirmed(string loadPath)
 	{
-		string loadPath = EditorUtility.OpenFilePanel("Open XML", Application.dataPath + "/XMLFiles/", "xml");
-			
 		if (File.Exists(loadPath) == true)
 		{
-			XmlSerializer serializer = new XmlSerializer(typeof(StrengthProgressionValuesContainer));
-			FileStream stream = new FileStream(loadPath, FileMode.Open);
-			var container = serializer.Deserialize(stream) as StrengthProgressionValuesContainer;
-			stream.Close();
+			string text = new StreamReader(loadPath).ReadToEnd();
 			
-			val.itemContainer = container;
+			if (val.fileType == XMLOrJson._XML)
+				val.itemContainer = XMLSerializer<StrengthProgressionValuesContainer>.Deserialize(text);
+			else
+				val.itemContainer = JsonFx.Json.JsonReader.Deserialize<StrengthProgressionValuesContainer>(text);
 		}
-		else
-			if (loadPath != "")
-				PatStuff.ScreenLog.AddMessage("ERROR! File at " + loadPath + " does not exist", ScreenLogType.Error);
 	}
 	
-	public override void SaveToLocalXML()
+	protected override void OnSaveFileConfirmed (string savePath)
 	{
-		string savePath = EditorUtility.SaveFilePanel("Export To XML", Application.dataPath + "/XMLFiles/", val.GetType().ToString(), "xml");//Application.dataPath + "/StrengthProgresionValues.xml";
-			
-		FileHelper.SaveStringToPath(savePath, XMLSerializer<StrengthProgressionValuesContainer>.Serialize(val.itemContainer));
+		if (val.fileType == XMLOrJson._XML)
+			FileHelper.SaveStringToPath(savePath, XMLSerializer<StrengthProgressionValuesContainer>.Serialize(val.itemContainer));
+		else
+			FileHelper.SaveStringToPath(savePath, JsonFx.Json.JsonWriter.Serialize(val.itemContainer));
+		
 		AssetDatabase.Refresh();
 	}
 	

@@ -12,7 +12,8 @@ public class ISerializableObjectInspectorBase : Editor
 {
 	#region Variables
 	
-	XMLObjectBase currentObject;
+	ISerializableObjectBase currentObject;
+	protected virtual string DefaultSaveFolder{ get{ return Application.dataPath + "/ISerializableBackup/"; } }
 	
 	#endregion
 	
@@ -20,7 +21,7 @@ public class ISerializableObjectInspectorBase : Editor
 	
 	public override void OnInspectorGUI()
 	{
-		currentObject = target as XMLObjectBase;
+		currentObject = target as ISerializableObjectBase;
 		
 		if (currentObject == null)
 			return;
@@ -32,24 +33,24 @@ public class ISerializableObjectInspectorBase : Editor
 		
 		GUILayout.BeginHorizontal();
 			
-			if (GUILayout.Button("Download XML"))
-				DownloadXMLFromServer();
+			if (GUILayout.Button("Download"))
+				DownloadFileFromServer();
 		
-			if (GUILayout.Button("Delete Server XML"))
+			if (GUILayout.Button("Delete From Server"))
 				DeleteFileOnServer();
 			
-			if (GUILayout.Button("Upload XML"))
-				UploadXMLToServer();
+			if (GUILayout.Button("Upload To Server"))
+				UploadFileToServer();
 		
 		GUILayout.EndHorizontal();
 		
 		GUILayout.BeginHorizontal();
 		
-			if (GUILayout.Button("Read From Local XML"))
-				ReadFromLocalXML();
+			if (GUILayout.Button("Read From Local"))
+				ReadFromLocalFile();
 			
-			if (GUILayout.Button("Save To Local XML"))
-				SaveToLocalXML();
+			if (GUILayout.Button("Save To Local"))
+				SaveToLocalFile();
 		
 		GUILayout.EndHorizontal();
 		
@@ -63,26 +64,44 @@ public class ISerializableObjectInspectorBase : Editor
 	{
 	}
 	
-	public virtual void DownloadXMLFromServer()
+	public virtual void DownloadFileFromServer()
 	{
 	}
 	
-	public virtual void UploadXMLToServer()
+	public virtual void UploadFileToServer()
 	{
 	}
 	
-	public virtual void ReadFromLocalXML()
+	public virtual void ReadFromLocalFile()
+	{
+		string fileExtension = (currentObject.fileType == XMLOrJson._XML) ? "xml" : "json";
+		string loadPath = EditorUtility.OpenFilePanel("Open XML", DefaultSaveFolder, fileExtension);
+		
+		if (loadPath != "") //if it is we hit the cancel button and will get an error
+			OnReadLocalFileConfirmed(loadPath);
+	}
+	
+	protected virtual void OnReadLocalFileConfirmed(string loadPath)
 	{
 	}
 	
-	public virtual void SaveToLocalXML()
+	public virtual void SaveToLocalFile()
+	{
+		string fileExtension = (currentObject.fileType == XMLOrJson._XML) ? "xml" : "json";
+		string savePath = EditorUtility.SaveFilePanel("Export To XML", DefaultSaveFolder, currentObject.GetType().ToString(), fileExtension);
+		
+		if (savePath != "") //if it is we hit the cancel button and will get an error
+			OnSaveFileConfirmed(savePath);
+	}
+	
+	protected virtual void OnSaveFileConfirmed(string savePath)
 	{
 	}
 	
 	public virtual void DeleteFileOnServer()
 	{
 		if (EditorUtility.DisplayDialog("Confirm?", "Are you sure you want to delete this from server? Cannot Undo", "YES!", "NO!") == true)
-			currentObject.DeleteXMLFromServer();
+			currentObject.DeleteFileFromServer();
 	}
 	
 	#endregion

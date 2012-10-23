@@ -38,39 +38,36 @@ public class ExcerciseValuesInspector : ISerializableObjectInspectorBase
 			val.itemContainer.excerciseItems = new List<ExcerciseItem>();
 	}
 	
-	public override void DownloadXMLFromServer()
+	public override void DownloadFileFromServer()
 	{
-		val.DownloadXMLFromServer<ExcerciseValuesContainer>(null);
+		val.DownloadFileFromServer<ExcerciseValuesContainer>(null);
 	}
 	
-	public override void UploadXMLToServer()
+	public override void UploadFileToServer()
 	{
-		val.UploadXMLToServer<ExcerciseValuesContainer>(null);
+		val.UploadFileToServer<ExcerciseValuesContainer>(null);
 	}
 	
-	public override void ReadFromLocalXML()
+	protected override void OnReadLocalFileConfirmed(string loadPath)
 	{
-		string loadPath = EditorUtility.OpenFilePanel("Open XML", Application.dataPath + "/XMLFiles/", "xml");
-			
 		if (File.Exists(loadPath) == true)
 		{
-			XmlSerializer serializer = new XmlSerializer(typeof(ExcerciseValuesContainer));
-			FileStream stream = new FileStream(loadPath, FileMode.Open);
-			var container = serializer.Deserialize(stream) as ExcerciseValuesContainer;
-			stream.Close();
+			string text = new StreamReader(loadPath).ReadToEnd();
 			
-			val.itemContainer = container;
+			if (val.fileType == XMLOrJson._XML)
+				val.itemContainer = XMLSerializer<ExcerciseValuesContainer>.Deserialize(text);
+			else
+				val.itemContainer = JsonFx.Json.JsonReader.Deserialize<ExcerciseValuesContainer>(text);
 		}
-		else
-			if (loadPath != "")
-				PatStuff.ScreenLog.AddMessage("ERROR! File at " + loadPath + " does not exist", ScreenLogType.Error);
 	}
 	
-	public override void SaveToLocalXML()
+	protected override void OnSaveFileConfirmed (string savePath)
 	{
-		string savePath = EditorUtility.SaveFilePanel("Export To XML", Application.dataPath + "/XMLFiles/", val.GetType().ToString(), "xml");//Application.dataPath + "/StrengthProgresionValues.xml";
-			
-		FileHelper.SaveStringToPath(savePath, XMLSerializer<ExcerciseValuesContainer>.Serialize(val.itemContainer));
+		if (val.fileType == XMLOrJson._XML)
+			FileHelper.SaveStringToPath(savePath, XMLSerializer<ExcerciseValuesContainer>.Serialize(val.itemContainer));
+		else
+			FileHelper.SaveStringToPath(savePath, JsonFx.Json.JsonWriter.Serialize(val.itemContainer));
+		
 		AssetDatabase.Refresh();
 	}
 	

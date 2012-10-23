@@ -212,7 +212,7 @@ public class Grid : MonoBehaviour, ISave, ILoad
 	
 	public void SaveData()
 	{
-		GridBlockValues.I.UploadXMLToServer<GridBlockValuesContainer>(GridBlockValues.I.itemContainer);
+		GridBlockValues.I.UploadFileToServer<GridBlockValuesContainer>(GridBlockValues.I.itemContainer);
 	}
 	
 	public void LoadData() //if this is false, it means we will assume this is a brand new game and create a new grid

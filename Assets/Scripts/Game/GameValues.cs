@@ -22,9 +22,12 @@ public class GameValues
 	
 	public static readonly int xPMin = 1;
 	public static readonly int xPMax = 100000;
-	public static int GetXPForLevel(Player player)
+	public static int GetXPForLevel()
 	{
-		return player.Stats.Level * 1010; //1010 is hard coded number xpmax / levelmax ish
+		if (UserBase.I != null)
+			return UserBase.I.userStats.level * 1010; //1010 is hard coded number xpmax / levelmax ish
+		else
+			return 0;
 	}
 	
 	public static readonly int staminaMin = 1;

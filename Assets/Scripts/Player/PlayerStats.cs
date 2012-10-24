@@ -22,7 +22,7 @@ public class PlayerStats : ISave, ILoad
 
     private int xP;
     public int XP { get { return xP; } }
-	public float GetXPPercentage { get { return (float)xP / (float)GameValues.GetXPForLevel(player); } } //Returns percentage between 0 and 1
+	public float GetXPPercentage { get { return (float)xP / (float)GameValues.GetXPForLevel(); } } //Returns percentage between 0 and 1
 	
 	private float stamina;
     public float Stamina { get { return stamina; } }
@@ -71,11 +71,11 @@ public class PlayerStats : ISave, ILoad
     {
 		int newVal = xP + addval;
 		
-		if (newVal >= GameValues.GetXPForLevel(player)) //We have reached a new level
+		if (newVal >= GameValues.GetXPForLevel()) //We have reached a new level
 		{
 			if (level + 1 < GameValues.levelMax)
 			{
-				xP = newVal - GameValues.GetXPForLevel(player); //set to the remainder
+				xP = newVal - GameValues.GetXPForLevel(); //set to the remainder
 				IncrementLevel();
 			}
 			else
@@ -90,9 +90,9 @@ public class PlayerStats : ISave, ILoad
 		}
 		
 		xP += addval;
-        xP = Mathf.Clamp(xP, GameValues.xPMin, GameValues.GetXPForLevel(player));
+        xP = Mathf.Clamp(xP, GameValues.xPMin, GameValues.GetXPForLevel());
 		
-		ScreenLog.AddMessage(GetXPPercentage + " " + xP + " " + GameValues.GetXPForLevel(player));
+		ScreenLog.AddMessage(GetXPPercentage + " " + xP + " " + GameValues.GetXPForLevel());
 		
 		if (lPlayer != null && lPlayer.GetHud != null)
 			lPlayer.GetHud.xpBar.Value = GetXPPercentage;

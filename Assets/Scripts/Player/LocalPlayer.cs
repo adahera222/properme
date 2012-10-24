@@ -100,8 +100,8 @@ public class LocalPlayer : Player, ISave
 		hud = FindObjectOfType(typeof(HUD)) as HUD;
 		
 		//we need to find the hud again each time  we reload level 1
-		if (hud != null)
-			hud.Init(this);
+		//if (hud != null)
+			//hud.Init(this);
 	}
 	
 	void OnDestroy()
@@ -167,7 +167,7 @@ public class LocalPlayer : Player, ISave
 	/// </param>
     public bool TryToDoExcercise(ExcerciseItem newExcercise)
     {
-        List<ReasonForCantDoExcercise> errorList = newExcercise.CanDoExcercise(this);
+        List<ReasonForCantDoExcercise> errorList = newExcercise.CanDoExcercise(UserBase.I);
 
         if (errorList.Count <= 0) //No errors we can do excercise
         {
@@ -793,6 +793,7 @@ public class LocalPlayer : Player, ISave
 	
 	void OnGUI()
 	{
+		/*
 		if (showDebug == false)
 			return;
 		
@@ -808,7 +809,7 @@ public class LocalPlayer : Player, ISave
 		}
 		
 		guiRect.y += guiRect.height;
-		if (GUI.Button(guiRect, "XP " + stats.XP + "/" + GameValues.GetXPForLevel(this)))
+		if (GUI.Button(guiRect, "XP " + stats.XP + "/" + GameValues.GetXPForLevel))
 		{
 			stats.ModifyXP(Stats.Level * 250);
 			SaveLoadHelper.Save(this);
@@ -893,7 +894,7 @@ public class LocalPlayer : Player, ISave
 		
 		
 		
-		*/
+		
 		
 		
 		
@@ -973,7 +974,7 @@ public class LocalPlayer : Player, ISave
 			Time.timeScale = 1.0f;
 			
 			Application.LoadLevel(0);
-		}
+		}*/
 	}
 	
 	void Test(string a)
@@ -983,4 +984,5 @@ public class LocalPlayer : Player, ISave
 	}
 	
 	#endif
+
 }

@@ -54,16 +54,16 @@ public class Item_Equipment : Item_GridHelper
 		
 		if (pointer.evt == GameValues.defaultInputEvent)
 		{
-			if (LocalPlayer.I.cameraControl.IsPinching == true)
+			if (CameraControl.I.IsPinching == true)
 				return;
 			
-			if (LocalPlayer.I.CurrentExcercise != null) //if we are doing an excercise dont create a popup
+			if (UserBase.I.CurrentExcercise != null) //if we are doing an excercise dont create a popup
 			{
 				if (isMoving == false) //create it if we are moving, because if we place a new piece of equipment while excercising we need to be able to place it.
 				{
 					OneButtonPopup temp= PopupManager.CreatePopup<OneButtonPopup>() as OneButtonPopup;
 					temp.titleText.Text = "Woah!";
-					temp.messageText.Text = "Already doing " + LocalPlayer.I.CurrentExcercise.displayName;
+					temp.messageText.Text = "Already doing " + UserBase.I.CurrentExcercise.displayName;
 					temp.cancelButton.Text = "Whoops";
 					return;
 				}

@@ -66,21 +66,21 @@ public class ExcerciseItem
     /// </summary>
     /// <param name="player"></param>
     /// <returns></returns>
-    public List<ReasonForCantDoExcercise> CanDoExcercise(LocalPlayer player)
+    public List<ReasonForCantDoExcercise> CanDoExcercise(UserBase user)
     {
 		ScreenLog.AddMessage(GetCoolDownSaveName);
         List<ReasonForCantDoExcercise> errorList = new List<ReasonForCantDoExcercise>();
 
-        if (player.Stats.Level < requiredLevel)
+        if (user.userStats.level < requiredLevel)
             errorList.Add(ReasonForCantDoExcercise.InsufficientLevel);
 
-        if (player.CurrentExcercise != null)
+        if (user.CurrentExcercise != null)
             errorList.Add(ReasonForCantDoExcercise.DoingOtherExcercise);
 		
-		/*if ((player.Stats.Fatigue + fatigueyModifierVal) < 0)
+		/*if ((user.userStats.fatigue + fatigueyModifierVal) < 0)
 			errorList.Add(ReasonForCantDo.InsufficientFatigue);
 		
-		if ((player.Stats.Hunger + hungerModifierVal) > GameValues.hungerMax)
+		if ((user.userStats.hunger + hungerModifierVal) > GameValues.hungerMax)
 			errorList.Add(ReasonForCantDo.ToHungry);*/
 
         if (PlayerPrefs.HasKey(GetCoolDownSaveName) == true)

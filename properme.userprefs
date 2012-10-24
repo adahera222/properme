@@ -1,0 +1,61 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/ISerializable/Items/User/UserBase.cs">
+    <Files>
+      <File FileName="Assets/Scripts/Player/PlayerStats.cs" Line="221" Column="3" />
+      <File FileName="Assets/Scripts/ISerializable/Items/User/UserBase.cs" Line="55" Column="40" />
+      <File FileName="Assets/Scripts/ISerializable/Items/User/UserStats.cs" Line="63" Column="25" />
+      <File FileName="Assets/Scripts/ISerializable/Items/User/UserAssets.cs" Line="88" Column="25" />
+      <File FileName="Assets/Scripts/Player/PlayerAssets.cs" Line="115" Column="4" />
+      <File FileName="Assets/Scripts/ISerializable/Base/ISerializableObjectBase.cs" Line="135" Column="2" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State expanded="True">
+          <Node name="Assembly-CSharp" expanded="True">
+            <Node name="Assets" expanded="True">
+              <Node name="Scripts" expanded="True">
+                <Node name="Game" expanded="True">
+                  <Node name="Grid" expanded="True" />
+                </Node>
+                <Node name="GUI" expanded="True">
+                  <Node name="Popup" expanded="True">
+                    <Node name="Derived" expanded="True">
+                      <Node name="Equipment" expanded="True" />
+                      <Node name="Fridge" expanded="True" />
+                      <Node name="Store" expanded="True" />
+                    </Node>
+                  </Node>
+                </Node>
+                <Node name="ISerializable" expanded="True">
+                  <Node name="Base" expanded="True" />
+                  <Node name="Items" expanded="True">
+                    <Node name="AgeProgression" expanded="True" />
+                    <Node name="Excercises" expanded="True" />
+                    <Node name="GridBlocks" expanded="True" />
+                    <Node name="User" expanded="True">
+                      <Node name="UserBase.cs" selected="True" />
+                    </Node>
+                  </Node>
+                </Node>
+                <Node name="Items" expanded="True" />
+                <Node name="Player" expanded="True" />
+              </Node>
+            </Node>
+          </Node>
+          <Node name="Assembly-CSharp-Editor" expanded="True">
+            <Node name="Assets" expanded="True">
+              <Node name="Editor" expanded="True">
+                <Node name="ISerializable" expanded="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

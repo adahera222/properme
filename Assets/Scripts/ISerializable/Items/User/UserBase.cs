@@ -8,12 +8,15 @@ using System.Collections.Generic;
 using System.IO;
 
 [System.Serializable]
-public class UserBase : ISerializableObjectBase
+public class UserBase : ISerializableObjectBase , ISave
 {
 	#region Variables
 	
 	private static UserBase myInstance;
     public static UserBase I { get { return myInstance; } }
+	
+	public override string XMLFileName{ get{ return "_UserBase_" + SystemInfo.deviceUniqueIdentifier + ".xml"; } }
+	public override string JsonFileName{ get{ return "_UserBase_" + SystemInfo.deviceUniqueIdentifier + ".json"; } }
 	
 	private ExcerciseItem currentExcercise = null; //Our current excercise. It this is null it means we are not excercising and can start a new one
 	public ExcerciseItem CurrentExcercise{ get{ return currentExcercise; } }
@@ -32,6 +35,9 @@ public class UserBase : ISerializableObjectBase
 	{
 		get	
 		{
+			if (itemContainer == null)
+				itemContainer = new UserContainer();
+			
 			if (itemContainer.userAssets == null)
 				itemContainer.userAssets = new UserAssets();
 			
@@ -43,6 +49,9 @@ public class UserBase : ISerializableObjectBase
 	{
 		get	
 		{
+			if (itemContainer == null)
+				itemContainer = new UserContainer();
+			
 			if (itemContainer.userStats == null)
 				itemContainer.userStats = new UserStats();
 			
@@ -71,6 +80,8 @@ public class UserBase : ISerializableObjectBase
 		
 		//stats.Init(this);
 		//assets.Init(this);
+		
+		activeBuffs = new List<Item_Buff>();
 		
 		myInstance = this;
 		
@@ -117,6 +128,73 @@ public class UserBase : ISerializableObjectBase
 	
 	#endregion
 	
+	#region SERVER
+	
+	/// <summary>
+	/// Loads the data from disc. Returns false if it doesnt exist
+	/// </summary>
+	/// <returns>
+	/// The data from disc.
+	/// </returns>
+	protected override bool LoadDataFromDisc()
+	{
+		itemContainer = GetSavedObjectFromDisc();
+		return (itemContainer == null) ? false : true;
+	}
+	
+	UserContainer GetSavedObjectFromDisc()
+	{
+		if (File.Exists(DefaultSaveToDiscPath) == true)
+		{
+			if (fileType == XMLOrJson._XML)
+				return XMLSerializer<UserContainer>.Deserialize(new StreamReader(DefaultSaveToDiscPath).ReadToEnd());
+			else
+				return JsonFx.Json.JsonReader.Deserialize(new StreamReader(DefaultSaveToDiscPath).ReadToEnd(), typeof(UserContainer)) as UserContainer;
+		}
+		
+		return null;
+	}
+	
+	public override void UploadFileToServer<T>(T itemContainer)
+	{
+		base.UploadFileToServer<UserContainer>(itemContainer as UserContainer);
+	}
+	
+	protected override void OnFileDoesntExistsOnServer()
+	{
+		//we will create a new user here. This will be users first time playing
+		userAssets.cash = GameValues.startCash;
+		userAssets.coins = GameValues.startCoin;
+		
+		//Primary
+		userStats.level =  GameValues.levelMin;
+		userStats.age = GameValues.ageMin;
+		userStats.xP = GameValues.xPMin;
+		userStats.stamina = GameValues.staminaMin;
+		userStats.strength = GameValues.strengthMin;
+		
+		//Secondary
+		userStats.fatigue = GameValues.fatigueMax / 2;
+		userStats.hunger = GameValues.hungerMin;
+
+		
+		//Challenges
+		userStats.soloChallengeDeadliftRecord = GameValues.deadliftWeightMin;
+		userStats.soloCompetitionDeadliftRecord = GameValues.deadliftWeightMin;
+	}
+	
+	public override void DownloadFileFromServer<T>(OnSerializableDownloadComplete completionDelegate)
+	{
+		base.DownloadFileFromServer<UserContainer>(completionDelegate);
+	}
+	
+	protected override void OnDownloadFromServerComplete<T>(T downloadedContainer)
+	{
+		itemContainer = downloadedContainer as UserContainer;
+	}
+	
+	#endregion
+	
 	#region Update
 	
 	//this will be called every second
@@ -150,6 +228,7 @@ public class UserBase : ISerializableObjectBase
 	{
 		PlayerPrefs.SetString(GetLastQuitTimePrefKey, DateTime.Now.ToString());
 		PlayerPrefs.Save();
+		SaveData();
 		//SaveLoadHelper.HardSave(this);
 	}
 	
@@ -166,8 +245,6 @@ public class UserBase : ISerializableObjectBase
 	
 	#endregion
 	
-	
-	
 	#region Excercise
 	
 	/// <summary>
@@ -181,7 +258,7 @@ public class UserBase : ISerializableObjectBase
 	/// </param>
     public bool TryToDoExcercise(ExcerciseItem newExcercise)
     {
-        List<ReasonForCantDoExcercise> errorList = newExcercise.CanDoExcercise(LocalPlayer.I);
+        List<ReasonForCantDoExcercise> errorList = newExcercise.CanDoExcercise(UserBase.I);
 
         if (errorList.Count <= 0) //No errors we can do excercise
         {
@@ -939,6 +1016,7 @@ public class UserBase : ISerializableObjectBase
 		if (GUI.Button(c, "DELETEALLDATA"))
 		{
 			GridBlockValues.I.DeleteFileFromServer();
+			DeleteFileFromServer();
 			
 			PlayerPrefs.DeleteAll();
 			
@@ -963,4 +1041,9 @@ public class UserBase : ISerializableObjectBase
 	}
 	
 	#endif
+	
+	public void SaveData()
+	{
+		UploadFileToServer<UserContainer>(itemContainer);
+	}
 }

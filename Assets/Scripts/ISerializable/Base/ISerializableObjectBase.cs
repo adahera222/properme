@@ -116,6 +116,7 @@ public class ISerializableObjectBase : MonoBehaviour
 				else
 				{
 					ScreenLog.AddMessage("File does not exist. Dont try to load");
+					OnFileDoesntExistsOnServer();
 					
 					if (completionDelegate != null)
 						completionDelegate(this, true, DownloadSource.None); //if we get a response from server saying it doesnt exists, fire it saying it succeded so it wont try to download again
@@ -129,6 +130,11 @@ public class ISerializableObjectBase : MonoBehaviour
 			if (completionDelegate != null)
 				completionDelegate(this, false, DownloadSource.None);
 		}
+	}
+	
+	protected virtual void OnFileDoesntExistsOnServer()
+	{
+		
 	}
 	
 	#region Uplaod

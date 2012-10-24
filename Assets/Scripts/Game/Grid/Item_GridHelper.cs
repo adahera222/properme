@@ -119,10 +119,10 @@ public class Item_GridHelper : Item_Base, IGridObject
     {
 		if (isMovable == true)
 		{
-			if (LocalPlayer.I.cameraControl.TraceObject(fingerPos).Equals(gameObject))
+			if (CameraControl.I.TraceObject(fingerPos).Equals(gameObject))
 			{
 				isMoving = true;
-				LocalPlayer.I.cameraControl.currentDragObject = this;
+				CameraControl.I.currentDragObject = this;
 				BeginMoving();
 			}
 		}
@@ -135,7 +135,7 @@ public class Item_GridHelper : Item_Base, IGridObject
 		
 		if (pointer.evt == GameValues.defaultInputEvent)
 		{
-			if (LocalPlayer.I.cameraControl.IsPinching == true)
+			if (CameraControl.I.IsPinching == true)
 				return;
 		}
     }

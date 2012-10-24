@@ -56,7 +56,7 @@ public class FridgePopup : PopupBase, IPopup
     {
 		itemScrollList.ClearList(true);
 		
-		foreach(ItemHandler curItem in LocalPlayer.I.Assets.AllItems)
+		foreach(ItemHandler curItem in UserBase.I.userAssets.allItems)
 		{
 			ItemType curItemType = curItem.item.GetItemType();
 			
@@ -91,7 +91,7 @@ public class FridgePopup : PopupBase, IPopup
 			if (itemToUseAfterConfirmation == null)
 				return;
 			
-			if (LocalPlayer.I.TryToConsumeItem((Item_Consumable)itemToUseAfterConfirmation.myItem.item) == true)
+			if (UserBase.I.TryToConsumeItem((Item_Consumable)itemToUseAfterConfirmation.myItem.item) == true)
 				itemToUseAfterConfirmation.SetTitleText(itemToUseAfterConfirmation.myItem.item.itemName + " " + itemToUseAfterConfirmation.myItem.numberOfItems);
 			else
 				itemScrollList.RemoveItem(itemToUseAfterConfirmation.itemContainer, true); // if false the item doesnt exists anymore, so remove the button for it
@@ -120,7 +120,7 @@ public class FridgePopup : PopupBase, IPopup
 			}
 			else if (clickedButton.myItem.item.GetItemType() == ItemType.Buff)
 			{
-				BuffUseErrors buffErrors = LocalPlayer.I.TryToUseBuff((Item_Buff)clickedButton.myItem.item);
+				BuffUseErrors buffErrors = UserBase.I.TryToUseBuff((Item_Buff)clickedButton.myItem.item);
 				
 				if (buffErrors == BuffUseErrors.None)
 					clickedButton.SetTitleText(clickedButton.myItem.item.itemName + " " + clickedButton.myItem.numberOfItems);

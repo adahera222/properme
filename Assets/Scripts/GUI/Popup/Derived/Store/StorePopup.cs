@@ -181,7 +181,7 @@ public class StorePopup : PopupBase, IPopup
 			
 			temp.costText.Text = temp.costText.Text.Trim();//Trim white spaces
 			
-			if (LocalPlayer.I.Assets.IsItemPurchased(temp.item) == true)
+			if (UserBase.I.userAssets.IsItemPurchased(temp.item) == true)
 				temp.button.SetColor(Color.green);
 			else
 				temp.button.SetColor(Color.red);
@@ -211,12 +211,12 @@ public class StorePopup : PopupBase, IPopup
 	/// </param>
 	PurchaseItemError CanPurchaseItem(StoreItemButton button)
 	{
-		if (LocalPlayer.I.Assets.Coins < button.item.purchaseInto.costInCoin)
+		if (UserBase.I.userAssets.coins < button.item.purchaseInto.costInCoin)
 			return PurchaseItemError.NotEnoughCoin;
-		if (LocalPlayer.I.Assets.Cash < button.item.purchaseInto.costInCash)
+		if (UserBase.I.userAssets.cash < button.item.purchaseInto.costInCash)
 			return PurchaseItemError.NotEnoughCash;
 		
-		if (LocalPlayer.I.Assets.IsItemPurchased(button.item) == true) //only purchase if we havent already purchased
+		if (UserBase.I.userAssets.IsItemPurchased(button.item) == true) //only purchase if we havent already purchased
 		{
 			if (button.item.GetItemType() != ItemType.Consumable && button.item.GetItemType() != ItemType.Buff)
 				return PurchaseItemError.AlreadyPurchased;
@@ -286,7 +286,7 @@ public class StorePopup : PopupBase, IPopup
 				
 					OneButtonPopup temp = PopupManager.CreatePopup<OneButtonPopup>() as OneButtonPopup;
 					temp.titleText.Text = "Sorry!";
-					temp.messageText.Text = "You need " + (clickedButton.item.purchaseInto.costInCoin - LocalPlayer.I.Assets.Coins) + " more coin to purchase this item";
+					temp.messageText.Text = "You need " + (clickedButton.item.purchaseInto.costInCoin - UserBase.I.userAssets.coins) + " more coin to purchase this item";
 
 				break;
 				
@@ -296,7 +296,7 @@ public class StorePopup : PopupBase, IPopup
 				
 					OneButtonPopup temp2 = PopupManager.CreatePopup<OneButtonPopup>() as OneButtonPopup;
 					temp2.titleText.Text = "Sorry!";
-					temp2.messageText.Text = "You need " + (clickedButton.item.purchaseInto.costInCash - LocalPlayer.I.Assets.Cash) + " more cash to purchase this item";
+					temp2.messageText.Text = "You need " + (clickedButton.item.purchaseInto.costInCash - UserBase.I.userAssets.cash) + " more cash to purchase this item";
 				
 				break;
 				
@@ -360,7 +360,7 @@ public class StorePopup : PopupBase, IPopup
 					clickedButton.button.SetColor(Color.green);
 				
 					//actually purchase the item. If this is equipment we will go straight into placement mode
-					LocalPlayer.I.Assets.OnPurchaseItem(clickedButton.item);
+					UserBase.I.userAssets.OnPurchaseItem(clickedButton.item);
 				
 					if (clickedButton.item.GetItemType() == ItemType.Equipment)
 					{
@@ -377,10 +377,10 @@ public class StorePopup : PopupBase, IPopup
 									//create new equipment and save the grid
 									Item_Equipment equipmentItemPlacing = Instantiate(clickedButton.item, freeBlock.myTransform.position, freeBlock.myTransform.rotation) as Item_Equipment;
 								
-									LocalPlayer.I.cameraControl.MoveCameraToBlock(freeBlock);//moves center of camera to new object
+									CameraControl.I.MoveCameraToBlock(freeBlock);//moves center of camera to new object
 									equipmentItemPlacing.SetupRenderer();
 									equipmentItemPlacing.BeginMoving();
-									LocalPlayer.I.cameraControl.currentDragObject = equipmentItemPlacing; //lets us drag object on creation
+									CameraControl.I.currentDragObject = equipmentItemPlacing; //lets us drag object on creation
 								
 									freeBlock.myItem = equipmentItemPlacing;
 								

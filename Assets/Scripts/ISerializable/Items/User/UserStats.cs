@@ -10,10 +10,11 @@ public class UserStats
 	public int level;
 	public int age;
 	public int xP;
+	public float GetXPPercentage { get { return (float)xP / (float)GameValues.GetXPForLevel(); } } //Returns percentage between 0 and 1
 	public float stamina;
 	public int strength;
 	
-    public int IncrementLevel()
+    public void IncrementLevel()
     {
 		level++;
         level = Mathf.Clamp(level, GameValues.levelMin, GameValues.levelMax);
@@ -27,26 +28,23 @@ public class UserStats
 			lPlayer.GetHud.hungerBar.Value = GetHungerPercentage;
 			lPlayer.GetHud.levelText.Text = player.Stats.Level.ToString();
 		}*/
-		
-        return level;
     }
 	
-	public int IncreaseAge()
+	public void IncreaseAge()
     {
 		age++;
         age = Mathf.Clamp(age, GameValues.ageMin, GameValues.ageMax);
-        return age;
     }
 	
-    public int ModifyXP(int addval)
+    public void ModifyXP(int addval)
     {
 		int newVal = xP + addval;
 		
-		if (newVal >= 100) //GameValues.GetXPForLevel(player)) //We have reached a new level
+		if (newVal >= GameValues.GetXPForLevel()) //We have reached a new level
 		{
 			if (level + 1 < GameValues.levelMax)
 			{
-				//xP = newVal - GameValues.GetXPForLevel(player); //set to the remainder
+				xP = newVal - GameValues.GetXPForLevel(); //set to the remainder
 				IncrementLevel();
 			}
 			else
@@ -57,32 +55,32 @@ public class UserStats
 			//if (lPlayer != null && lPlayer.GetHud != null)
 				//lPlayer.GetHud.xpBar.Value = GetXPPercentage;
 			
-			return xP;
+			UserBase.I.SaveData();
+			return;
 		}
 		
 		xP += addval;
+		UserBase.I.SaveData();
        // xP = Mathf.Clamp(xP, GameValues.xPMin, GameValues.GetXPForLevel(player));
 		
 		//ScreenLog.AddMessage(GetXPPercentage + " " + xP + " " + GameValues.GetXPForLevel(player));
 		
 		//if (lPlayer != null && lPlayer.GetHud != null)
 			//lPlayer.GetHud.xpBar.Value = GetXPPercentage;
-		
-        return xP;
     }
 	
-	public float ModifyStamina(float addval)
+	public void ModifyStamina(float addval)
     {
 		stamina += addval;
+		UserBase.I.SaveData();
 		//stamina = Mathf.Clamp(stamina, GameValues.staminaMin, GameValues.GetStaminaMaxForLevel(player));
-		return stamina;
     }
 	
-	public int IncrementStrength()
+	public void IncrementStrength()
     {
 		strength += 1;
+		UserBase.I.SaveData();
 		//strength = Mathf.Clamp(strength, GameValues.strengthMin, StrengthProgressionValues.I.itemContainer.strengthProgression.Count - 1);
-		return strength;
     }
 	
 	#endregion
@@ -92,10 +90,7 @@ public class UserStats
 	public float fatigue;
 	public float hunger;
 
-    public float Fatigue { get { return fatigue; } }
 	public float GetFatiguePercentage { get { return fatigue / GameValues.fatigueMax; } } //Returns percentage between 0 and 1
-	
-    public float Hunger { get { return hunger; } }
 	public float GetHungerPercentage { get { return hunger / GameValues.hungerMax; } } //Returns percentage between 0 and 1
 	
 	public float ModifyFatigue(float addval)
@@ -106,6 +101,7 @@ public class UserStats
 		//if (lPlayer != null && lPlayer.GetHud != null)
 			//lPlayer.GetHud.fatigueBar.Value = GetFatiguePercentage;
 		
+		UserBase.I.SaveData();
         return fatigue;
     }
 
@@ -117,6 +113,7 @@ public class UserStats
 		//if (lPlayer != null && lPlayer.GetHud != null)
 			//lPlayer.GetHud.hungerBar.Value = GetHungerPercentage;
 		
+		UserBase.I.SaveData();
         return hunger;
     }
 	
@@ -126,10 +123,8 @@ public class UserStats
 	#region Challenges
 	
 	public int soloChallengeDeadliftRecord;
-	public int SoloChallengeDeadliftRecord{ get{ return soloChallengeDeadliftRecord; } }
 	
 	public int soloCompetitionDeadliftRecord;
-	public int SoloCompetitionDeadliftRecord{ get{ return soloCompetitionDeadliftRecord; } }
 	
 	#endregion
 

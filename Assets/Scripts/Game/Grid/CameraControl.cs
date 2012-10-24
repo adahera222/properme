@@ -8,6 +8,9 @@ public class CameraControl : MonoBehaviour
 {
 	#region Variables
 	
+	private static CameraControl myInstance;
+	public static CameraControl I{ get{ return myInstance; } }
+	
 	private Camera myCam;
 	private Transform myTransform;
 	
@@ -37,7 +40,7 @@ public class CameraControl : MonoBehaviour
 		myCam = GetComponent(typeof(Camera)) as Camera;
 		myTransform = myCam.transform;
 		
-		LocalPlayer.I.cameraControl = this;
+		myInstance = this;
 		
 		gameObject.name = this.GetType().ToString();
 		

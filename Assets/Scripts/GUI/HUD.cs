@@ -26,26 +26,26 @@ public class HUD : MonoBehaviour
 	
 	#region Init
 	
-	public void Init(Player player)
+	public void Init(UserBase user)
 	{
 		myCam = GetComponent(typeof(Camera)) as Camera;
 		
-		xpBar.Value = player.Stats.GetXPPercentage;
-		levelText.Text = player.Stats.Level.ToString();
+		xpBar.Value = user.userStats.GetXPPercentage;
+		levelText.Text = user.userStats.level.ToString();
 		
 		coinButton.AddInputDelegate(CoinButtonClickedDelegate);
 		
 		coinText.maxWidth = coinText.characterSize * 6;
 		cashText.maxWidth = cashText.characterSize * 6;
 		
-		coinText.Text = player.Assets.Coins.ToString();
-		cashText.Text = player.Assets.Cash.ToString();
+		coinText.Text = user.userAssets.coins.ToString();
+		cashText.Text = user.userAssets.cash.ToString();
 		
 		coinText.SetColor(Color.yellow);
 		cashText.SetColor(Color.green);
 		
-		fatigueBar.Value = player.Stats.GetFatiguePercentage;
-		hungerBar.Value = player.Stats.GetHungerPercentage;
+		fatigueBar.Value = user.userStats.GetFatiguePercentage;
+		hungerBar.Value = user.userStats.GetHungerPercentage;
 		
 		fatigueBar.AddInputDelegate(CoinButtonClickedDelegate);
 		

@@ -92,7 +92,7 @@ public class EquipmentPopup : PopupBase, IPopup
             if (clickedButton == null || clickedButton.excercise == null)
                 return;
 			
-			if (LocalPlayer.I.TryToDoExcercise(clickedButton.excercise) == true)
+			if (UserBase.I.TryToDoExcercise(clickedButton.excercise) == true)
 				Kill();
         }
     }

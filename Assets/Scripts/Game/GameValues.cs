@@ -25,7 +25,9 @@ public class GameValues
 	public static int GetXPForLevel()
 	{
 		if (UserBase.I != null)
+		{
 			return UserBase.I.userStats.level * 1010; //1010 is hard coded number xpmax / levelmax ish
+		}
 		else
 			return 0;
 	}

@@ -12,6 +12,10 @@ public class UserBase : ISerializableObjectBase , ISave
 {
 	#region Variables
 	
+	public HUD hudPrefab;
+	private HUD hud;
+	public HUD Hud_User{ get{ return hud; } }
+	
 	private static UserBase myInstance;
     public static UserBase I { get { return myInstance; } }
 	
@@ -124,6 +128,17 @@ public class UserBase : ISerializableObjectBase , ISave
 		}
 		
 		DownloadableObjectHandler.I.RemoveLoadCompletionDelegate(OnGameDataDidLoad);
+		CreateHud();
+	}
+	
+	void CreateHud()
+	{
+		if (hud != null)
+			return;
+		
+		hud = Instantiate(hudPrefab, Vector3.zero, Quaternion.identity) as HUD;
+		hud.transform.parent = transform;
+		hud.Init(this);
 	}
 	
 	#endregion
@@ -159,7 +174,35 @@ public class UserBase : ISerializableObjectBase , ISave
 	{
 		base.UploadFileToServer<UserContainer>(itemContainer as UserContainer);
 	}
-	
+	/*
+	protected override IEnumerator DoUploadFileToServer<T>(T itemContainer)
+	{
+		//var form = new WWWForm();
+		
+		//byte[] temp;
+		//if (fileType == XMLOrJson._XML)
+		//	temp = XMLSerializer<T>.Serialize(itemContainer).StringToByteArray();
+		//else
+			//temp = JsonFx.Json.JsonWriter.Serialize(itemContainer).StringToByteArray();
+			
+		//form.AddBinaryData("theFile", temp, FileNameFromCurrentFileType, "text/plain"); //add bytes to our form
+		Debug.Log(SystemInfo.deviceUniqueIdentifier);
+		WWW curUpload = new WWW("http://default-environment-f2jgms3epj.elasticbeanstalk.com/index.jsp?requestName=setRecord&id=100" + SystemInfo.deviceUniqueIdentifier + "&data=" + JsonFx.Json.JsonWriter.Serialize(itemContainer));
+		
+			//5F288E0F-D262-59CC-B412-34528DBA1663
+			
+			//"//, form); //create upload from our php script
+		
+		yield return curUpload;
+		
+		//UPLOAD IS FINISHED
+		
+		if (curUpload.error == null)
+			ScreenLog.AddMessage(curUpload.text);
+		else
+			ScreenLog.AddMessage(curUpload.error, ScreenLogType.Error);
+	}
+	*/
 	protected override void OnFileDoesntExistsOnServer()
 	{
 		//we will create a new user here. This will be users first time playing
@@ -181,6 +224,8 @@ public class UserBase : ISerializableObjectBase , ISave
 		//Challenges
 		userStats.soloChallengeDeadliftRecord = GameValues.deadliftWeightMin;
 		userStats.soloCompetitionDeadliftRecord = GameValues.deadliftWeightMin;
+		
+		CreateHud();
 	}
 	
 	public override void DownloadFileFromServer<T>(OnSerializableDownloadComplete completionDelegate)
@@ -191,6 +236,8 @@ public class UserBase : ISerializableObjectBase , ISave
 	protected override void OnDownloadFromServerComplete<T>(T downloadedContainer)
 	{
 		itemContainer = downloadedContainer as UserContainer;
+		
+		CreateHud();
 	}
 	
 	#endregion
@@ -865,7 +912,7 @@ public class UserBase : ISerializableObjectBase , ISave
 		}
 		
 		guiRect.y += guiRect.height;
-		if (GUI.Button(guiRect, "XP " + userStats.xP + "/" ))//+ GameValues.GetXPForLevel(this)))
+		if (GUI.Button(guiRect, "XP " + userStats.xP + "/"+ GameValues.GetXPForLevel()))
 		{
 			userStats.ModifyXP(userStats.level * 250);
 			//SaveLoadHelper.Save(this);

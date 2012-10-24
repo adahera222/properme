@@ -144,7 +144,7 @@ public class ISerializableObjectBase : MonoBehaviour
 		StartCoroutine(DoUploadFileToServer<T>(itemContainer));
 	}
 	
-	IEnumerator DoUploadFileToServer<T>(T itemContainer)
+	protected virtual IEnumerator DoUploadFileToServer<T>(T itemContainer)
 	{
 		var form = new WWWForm();
 		
@@ -201,7 +201,7 @@ public class ISerializableObjectBase : MonoBehaviour
 		StartCoroutine(DoDownloadFileFromServer<T>(completionDelegate));
 	}
 	
-	IEnumerator DoDownloadFileFromServer<T>(OnSerializableDownloadComplete completionDelegate)
+	protected virtual IEnumerator DoDownloadFileFromServer<T>(OnSerializableDownloadComplete completionDelegate)
 	{
 		WWW download = new WWW("http://www.j3gaming.com/pat/GymGame/XMLFiles/" + FileNameFromCurrentFileType + "?" + System.DateTime.Now.ToBinary());
 		

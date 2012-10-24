@@ -22,12 +22,9 @@ public class UserStats
 		fatigue = GameValues.fatigueMax;
 		hunger = GameValues.hungerMin;
 		
-		/*(if (lPlayer != null && lPlayer.GetHud != null)
-		{
-			lPlayer.GetHud.fatigueBar.Value = GetFatiguePercentage;
-			lPlayer.GetHud.hungerBar.Value = GetHungerPercentage;
-			lPlayer.GetHud.levelText.Text = player.Stats.Level.ToString();
-		}*/
+		UserBase.I.Hud_User.fatigueBar.Value = GetFatiguePercentage;
+		UserBase.I.Hud_User.hungerBar.Value = GetHungerPercentage;
+		UserBase.I.Hud_User.levelText.Text = UserBase.I.userStats.level.ToString();
     }
 	
 	public void IncreaseAge()
@@ -52,8 +49,8 @@ public class UserStats
 				//WE ARE AT MAX LEVEL!	
 			}
 		
-			//if (lPlayer != null && lPlayer.GetHud != null)
-				//lPlayer.GetHud.xpBar.Value = GetXPPercentage;
+			Debug.Log(GetXPPercentage);
+			UserBase.I.Hud_User.xpBar.Value = GetXPPercentage;
 			
 			UserBase.I.SaveData();
 			return;
@@ -65,8 +62,7 @@ public class UserStats
 		
 		//ScreenLog.AddMessage(GetXPPercentage + " " + xP + " " + GameValues.GetXPForLevel(player));
 		
-		//if (lPlayer != null && lPlayer.GetHud != null)
-			//lPlayer.GetHud.xpBar.Value = GetXPPercentage;
+		UserBase.I.Hud_User.xpBar.Value = GetXPPercentage;
     }
 	
 	public void ModifyStamina(float addval)
@@ -98,8 +94,7 @@ public class UserStats
         fatigue += addval;
         fatigue = Mathf.Clamp(fatigue, GameValues.fatigueMin, GameValues.fatigueMax);
 		
-		//if (lPlayer != null && lPlayer.GetHud != null)
-			//lPlayer.GetHud.fatigueBar.Value = GetFatiguePercentage;
+		UserBase.I.Hud_User.fatigueBar.Value = GetFatiguePercentage;
 		
 		UserBase.I.SaveData();
         return fatigue;
@@ -110,8 +105,7 @@ public class UserStats
         hunger += addval;
         hunger = Mathf.Clamp(hunger, GameValues.hungerMin, GameValues.hungerMax);
 		
-		//if (lPlayer != null && lPlayer.GetHud != null)
-			//lPlayer.GetHud.hungerBar.Value = GetHungerPercentage;
+		UserBase.I.Hud_User.hungerBar.Value = GetHungerPercentage;
 		
 		UserBase.I.SaveData();
         return hunger;

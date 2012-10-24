@@ -27,8 +27,7 @@ public class UserAssets
 
         cash = newVal;
 		
-		//if (lPlayer != null)
-			//lPlayer.GetHud.cashText.Text = cash.ToString();
+		UserBase.I.Hud_User.cashText.Text = cash.ToString();
 		
 		UserBase.I.SaveData();
         return cash;
@@ -45,8 +44,7 @@ public class UserAssets
 		
         coins = newVal;
 		
-		//if (lPlayer != null)
-			//lPlayer.GetHud.coinText.Text = coins.ToString();
+		UserBase.I.Hud_User.coinText.Text = coins.ToString();
 		
 		UserBase.I.SaveData();
 		

@@ -71,7 +71,6 @@
      <None Include="Assets\Fonts\Font.txt" />
      <None Include="Assets\Shaders\Mobile\Vertex Colored Shaders\Mobile Vertex Colored.shader" />
      <None Include="Assets\Doxygen\ReadMe.txt" />
-     <None Include="Assets\ISerializableBackup\UserBase.xml" />
      <None Include="Assets\Plugins\JsonFx.Json.Unity3d\Release\Readme.txt" />
      <None Include="Assets\Shaders\Mobile\Miscellaneous Shaders\Mobile Detail.shader" />
  <Reference Include="Assets\Plugins\PatStuff">

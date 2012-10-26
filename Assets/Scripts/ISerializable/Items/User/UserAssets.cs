@@ -6,6 +6,10 @@ using PatStuff;
 [System.Serializable]
 public class UserAssets
 {
+	[XmlIgnore]
+	[JsonIgnore]
+	public UserBase myUser;
+	
 	public int cash;
     public int coins;
 	
@@ -27,9 +31,9 @@ public class UserAssets
 
         cash = newVal;
 		
-		UserBase.I.Hud_User.cashText.Text = cash.ToString();
+		myUser.Hud_User.cashText.Text = cash.ToString();
 		
-		UserBase.I.SaveData();
+		myUser.SaveData();
         return cash;
     }
 
@@ -44,9 +48,9 @@ public class UserAssets
 		
         coins = newVal;
 		
-		UserBase.I.Hud_User.coinText.Text = coins.ToString();
+		myUser.Hud_User.coinText.Text = coins.ToString();
 		
-		UserBase.I.SaveData();
+		myUser.SaveData();
 		
         return coins;
     }
@@ -75,7 +79,7 @@ public class UserAssets
 		ModifyCoins(-item.purchaseInto.costInCoin);
 		ModifyCash(-item.purchaseInto.costInCash);
 		
-		UserBase.I.SaveData();
+		myUser.SaveData();
 		
 		//PopupManager.I.CreateOneButtonPopup("Congratulations!", "You just purchased " + item.itemName + " for " + item.purchaseInto.cost + " " + item.purchaseInto.moneyType);
 	}
@@ -83,7 +87,7 @@ public class UserAssets
 	public void RemoveItemFroAssets(ItemHandler itemToRemove)
 	{
 		allItems.Remove(itemToRemove);
-		UserBase.I.SaveData();
+		myUser.SaveData();
 	}
 	
 	public bool IsItemPurchased(Item_Base item)

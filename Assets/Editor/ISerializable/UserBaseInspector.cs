@@ -46,7 +46,7 @@ public class UserBaseInspector : ISerializableObjectInspectorBase
 	
 	public override void UploadFileToServer()
 	{
-		val.UploadFileToServer<UserContainer>(null);
+		val.UploadFileToServer<UserContainer>(val.itemContainer);
 	}
 	
 	protected override void OnReadLocalFileConfirmed(string loadPath)

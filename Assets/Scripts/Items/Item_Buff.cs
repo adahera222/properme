@@ -37,13 +37,13 @@ public class Item_Buff : Item_Base
 		extraStrengthIncreasePercentage = Mathf.Clamp(extraStrengthIncreasePercentage, -1.0f, 1.0f);
 	}
 	
-	public IEnumerator DoUseBuff(LocalPlayer player)
+	public IEnumerator DoUseBuff(UserBase user)
     {
         startTime = DateTime.Now;
         TimeSpan runningTime = TimeSpan.MinValue;
 		timeInSecondsTillCompletion = timeoutInSeconds;
 		
-		SaveBuffStartTime(player);
+		SaveBuffStartTime(user);
 
         while (runningTime.TotalSeconds < timeoutInSeconds)
         {
@@ -53,13 +53,13 @@ public class Item_Buff : Item_Base
             yield return null;
         }
 		
-		DeleteBuffSaveData(player);
+		DeleteBuffSaveData(user);
 		
 		timeInSecondsTillCompletion = 0;
-		player.ActiveBuffs.Remove(this);
+		user.ActiveBuffs.Remove(this);
     }
 	
-	public IEnumerator DoUseBuffAtCustomTime(LocalPlayer player, DateTime customStartTime)
+	public IEnumerator DoUseBuffAtCustomTime(UserBase user, DateTime customStartTime)
     {
         startTime = customStartTime;
         TimeSpan runningTime = TimeSpan.MinValue;
@@ -73,29 +73,29 @@ public class Item_Buff : Item_Base
             yield return null;
         }
 		
-		DeleteBuffSaveData(player);
+		DeleteBuffSaveData(user);
 		
 		timeInSecondsTillCompletion = 0;
-        player.ActiveBuffs.Remove(this);
+        user.ActiveBuffs.Remove(this);
     }
 	
-	void SaveBuffStartTime(LocalPlayer player)
+	void SaveBuffStartTime(UserBase user)
 	{
 		PlayerPrefs.SetInt(SystemInfo.deviceUniqueIdentifier + "_Buff_itemID_" + itemID, itemID);
 		PlayerPrefs.SetString(SystemInfo.deviceUniqueIdentifier + "_Buff_itemID_" + itemID + " _StartTime_", startTime.ToString()); //Save the start time, so if we quit app and come back it will remember the time	
 	}
 	
-	public void LoadBuffSaveData(LocalPlayer player)
+	public void LoadBuffSaveData(UserBase user)
 	{
 		DateTime loadedStartTime = DateTime.MinValue;
 		
 		bool loadedLastTimeSuccessful = DateTime.TryParse(PlayerPrefs.GetString(SystemInfo.deviceUniqueIdentifier + "_Buff_itemID_" + itemID + " _StartTime_"), out loadedStartTime);
 				
 		if (loadedLastTimeSuccessful == true) //we successfully loaded buff
-			player.UseBuffAtCustomTime(this, loadedStartTime);
+			user.UseBuffAtCustomTime(this, loadedStartTime);
 	}
 	
-	void DeleteBuffSaveData(LocalPlayer player)
+	void DeleteBuffSaveData(UserBase user)
 	{
 		PlayerPrefs.DeleteKey(SystemInfo.deviceUniqueIdentifier + "_Buff_itemID_" + itemID);
 		PlayerPrefs.DeleteKey(SystemInfo.deviceUniqueIdentifier + "_Buff_itemID_StartTime_");

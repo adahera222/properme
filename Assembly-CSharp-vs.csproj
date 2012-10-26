@@ -95,6 +95,7 @@
      <Compile Include="Assets\Scripts\ISerializable\Items\User\UserBase.cs" />
      <Compile Include="Assets\Scripts\ISerializable\Items\User\UserContainer.cs" />
      <Compile Include="Assets\Scripts\ISerializable\Items\User\UserStats.cs" />
+     <Compile Include="Assets\Scripts\Items\ItemHandler.cs" />
      <Compile Include="Assets\Scripts\Items\Item_Base.cs" />
      <Compile Include="Assets\Scripts\Items\Item_Buff.cs" />
      <Compile Include="Assets\Scripts\Items\Item_ClothingOrGear.cs" />
@@ -102,12 +103,7 @@
      <Compile Include="Assets\Scripts\Items\Item_Decoration.cs" />
      <Compile Include="Assets\Scripts\Items\Item_Equipment.cs" />
      <Compile Include="Assets\Scripts\Level\LevelManager.cs" />
-     <Compile Include="Assets\Scripts\Player\LocalPlayer.cs" />
      <Compile Include="Assets\Scripts\Player\MuscleGroupHelper.cs" />
-     <Compile Include="Assets\Scripts\Player\Player.cs" />
-     <Compile Include="Assets\Scripts\Player\PlayerAssets.cs" />
-     <Compile Include="Assets\Scripts\Player\PlayerStats.cs" />
-     <Compile Include="Assets\Scripts\Player\TestPlayer.cs" />
      <Compile Include="Assets\Scripts\PlayerActions\ChallengeHandler.cs" />
      <Compile Include="Assets\Scripts\Server\PHPTest.cs" />
      <Compile Include="Assets\ThirdParty\BundleLoader\Scripts\BundleLoader.cs" />

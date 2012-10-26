@@ -33,21 +33,21 @@ public class DeadliftWeightSelectionPopup : PopupBase, IPopup
 		{
 			case CompetitionType.SoloChallenge:
 			
-				weightSelectionText.Text = LocalPlayer.I.Stats.SoloChallengeDeadliftRecord + 10 + "";
+				weightSelectionText.Text = UserBase.I.userStats.soloChallengeDeadliftRecord + 10 + "";
 				weightSelectionText.spriteText.SetColor(Color.red);
 			
 			break;
 				
 			case CompetitionType.HeadToHeadChallenge:
 			
-				weightSelectionText.Text = LocalPlayer.I.Stats.SoloCompetitionDeadliftRecord + 10 + "";
+				weightSelectionText.Text = UserBase.I.userStats.soloCompetitionDeadliftRecord + 10 + "";
 				weightSelectionText.spriteText.SetColor(Color.red);
 			
 			break;
 				
 			case CompetitionType.Competition:
 			
-				weightSelectionText.Text = LocalPlayer.I.Stats.SoloCompetitionDeadliftRecord + 10 + "";
+				weightSelectionText.Text = UserBase.I.userStats.soloCompetitionDeadliftRecord + 10 + "";
 				weightSelectionText.spriteText.SetColor(Color.red);
 			
 			break;
@@ -109,7 +109,7 @@ public class DeadliftWeightSelectionPopup : PopupBase, IPopup
 			{
 				case CompetitionType.SoloChallenge:
 				
-					if (curVal > LocalPlayer.I.Stats.SoloChallengeDeadliftRecord)
+					if (curVal > UserBase.I.userStats.soloChallengeDeadliftRecord)
 						weightSelectionText.spriteText.SetColor(Color.red);
 					else
 						weightSelectionText.spriteText.SetColor(Color.green);
@@ -118,7 +118,7 @@ public class DeadliftWeightSelectionPopup : PopupBase, IPopup
 					
 				case CompetitionType.HeadToHeadChallenge:
 				
-					if (curVal > LocalPlayer.I.Stats.SoloCompetitionDeadliftRecord)
+					if (curVal > UserBase.I.userStats.soloCompetitionDeadliftRecord)
 						weightSelectionText.spriteText.SetColor(Color.red);
 					else
 						weightSelectionText.spriteText.SetColor(Color.green);
@@ -127,7 +127,7 @@ public class DeadliftWeightSelectionPopup : PopupBase, IPopup
 					
 				case CompetitionType.Competition:
 				
-					if (curVal > LocalPlayer.I.Stats.SoloCompetitionDeadliftRecord)
+					if (curVal > UserBase.I.userStats.soloCompetitionDeadliftRecord)
 						weightSelectionText.spriteText.SetColor(Color.red);
 					else
 						weightSelectionText.spriteText.SetColor(Color.green);
@@ -163,15 +163,16 @@ public class DeadliftWeightSelectionPopup : PopupBase, IPopup
 			switch(competitionType)
 			{
 				case CompetitionType.SoloChallenge:
-					ChallengeHandler.I.BeginSoloChallenge(LocalPlayer.I, curVal);
+					ChallengeHandler.I.BeginSoloChallenge(UserBase.I, curVal);
 				break;
 					
 				case CompetitionType.HeadToHeadChallenge:
-					ChallengeHandler.I.BeginHeadToHeadChallenge(LocalPlayer.I, (Player)GameObject.Find("TestPlayer").GetComponent(typeof(Player)), curVal);
+				Debug.Log("FIX");
+					//ChallengeHandler.I.BeginHeadToHeadChallenge(UserBase.I, (Player)GameObject.Find("TestPlayer").GetComponent(typeof(Player)), curVal);
 				break;
 					
 				case CompetitionType.Competition:
-					ChallengeHandler.I.BeginSoloCompetition(LocalPlayer.I, curVal);
+					ChallengeHandler.I.BeginSoloCompetition(UserBase.I, curVal);
 				break;
 			}
         }

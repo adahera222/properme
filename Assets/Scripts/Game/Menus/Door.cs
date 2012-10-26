@@ -39,7 +39,7 @@ public class Door : Item_GridHelper
     {
 		if (pointer.evt == GameValues.defaultInputEvent)
 		{
-			if (LocalPlayer.I.CurrentExcercise != null) //ask if we want to stop our current excercise
+			if (UserBase.I.CurrentExcercise != null) //ask if we want to stop our current excercise
 			{
 				YesNoPopup temp = PopupManager.CreatePopup<YesNoPopup>() as YesNoPopup;
 				temp.titleText.Text = "Excercising";
@@ -57,7 +57,7 @@ public class Door : Item_GridHelper
     {
 		if (pointer.evt == GameValues.defaultInputEvent)
 		{
-			LocalPlayer.I.StopCurrentExcercise();
+			UserBase.I.StopCurrentExcercise();
         	LevelManager.LoadNewLevel("CompetitionArea");
 		}
     }

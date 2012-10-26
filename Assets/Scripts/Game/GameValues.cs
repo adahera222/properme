@@ -22,11 +22,11 @@ public class GameValues
 	
 	public static readonly int xPMin = 1;
 	public static readonly int xPMax = 100000;
-	public static int GetXPForLevel()
+	public static int GetXPForLevel(UserBase user)
 	{
-		if (UserBase.I != null)
+		if (user != null)
 		{
-			return UserBase.I.userStats.level * 1010; //1010 is hard coded number xpmax / levelmax ish
+			return user.userStats.level * 1010; //1010 is hard coded number xpmax / levelmax ish
 		}
 		else
 			return 0;
@@ -34,9 +34,9 @@ public class GameValues
 	
 	public static readonly int staminaMin = 1;
 	public static readonly int baseStamina = 1000; //the base level for stamina. will be increased exponentially based on level
-	public static int GetStaminaMaxForLevel(Player player)
+	public static int GetStaminaMaxForLevel(UserBase user)
 	{
-		return baseStamina * player.Stats.Level;
+		return baseStamina * user.userStats.level;
 	}
 	
 	public static readonly int strengthMin = 1;
@@ -44,7 +44,7 @@ public class GameValues
 	
 	public static readonly int fatigueMin = 1;
 	public static readonly int fatigueMax = 1000;
-	public static int GetFatigueIncreaseValPerSecond(Player player)
+	public static int GetFatigueIncreaseValPerSecond(UserBase user)
 	{
 		/*float baseVal = player.Stats.Stamina - player.Stats.Hunger;
 		//baseVal = baseVal / player.Stats.Level;
@@ -59,9 +59,9 @@ public class GameValues
 	
 	public static readonly int hungerMin = 0;
 	public static readonly int hungerMax = 1000;
-	public static int GetHungerIncreaseValPerSecond(Player player)
+	public static int GetHungerIncreaseValPerSecond(UserBase user)
 	{
-		return player.Stats.Level;
+		return user.userStats.level;
 	}
 	
 	#endregion
@@ -82,15 +82,15 @@ public class GameValues
 	#region MuscleGroups
 	
 	public enum MuscleGroup
-{
-	None,
-	Quads,
-	Back,
-	Biceps,
-	Glutes,
-	Hamstring,
-	Abs
-}
+	{
+		None,
+		Quads,
+		Back,
+		Biceps,
+		Glutes,
+		Hamstring,
+		Abs
+	}
 	
 	public static readonly int maxQuadExcercises = 50000;
 	public static readonly int maxBackExcercises = 50000;

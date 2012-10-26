@@ -46,30 +46,30 @@ public class ChallengeHandler : MonoBehaviour
 	
 	#region Methods
 	
-	public void BeginSoloChallenge(Player player , int deadLiftWeight)
+	public void BeginSoloChallenge(UserBase user, int deadLiftWeight)
 	{
-		if (player.CanDoDeadLift(deadLiftWeight) == true)
+		if (user.CanDoDeadLift(deadLiftWeight) == true)
 		{
 			string finalMessage = "You Just Deadlifted " + deadLiftWeight + "LBS! ";
 			int cashReward = 0;
 			int xpReward = 0;
 			
-			if (player.Stats.SoloChallengeDeadliftRecord >= deadLiftWeight) // we have already deadlifted this weight
+			if (user.userStats.soloChallengeDeadliftRecord >= deadLiftWeight) // we have already deadlifted this weight
 			{
 				cashReward = deadLiftWeight;
 				finalMessage += "Since you didnt beat a previous record, you earned $" + cashReward + " but no xp";
 			}
-			else if (player.Stats.SoloChallengeDeadliftRecord < deadLiftWeight)  //this is a new record!
+			else if (user.userStats.soloChallengeDeadliftRecord < deadLiftWeight)  //this is a new record!
 			{
 				cashReward = deadLiftWeight * 10;
-				xpReward = player.Stats.Level * 500;
+				xpReward = user.userStats.level * 500;
 				
 				finalMessage += "You Beat Your Record! You get $" + cashReward + " and " + xpReward + " XP";
 			}
 			
-			player.Stats.SetNewSoloChallengeDeadliftRecord(deadLiftWeight);
-			player.Assets.ModifyCash(cashReward);
-			player.Stats.ModifyXP(xpReward);
+			user.userStats.SetNewSoloChallengeDeadliftRecord(deadLiftWeight);
+			user.userAssets.ModifyCash(cashReward);
+			user.userStats.ModifyXP(xpReward);
 			
 			
 			OneButtonPopup temp= PopupManager.CreatePopup<OneButtonPopup>() as OneButtonPopup;
@@ -84,19 +84,19 @@ public class ChallengeHandler : MonoBehaviour
 		}
 	}
 	
-	public void BeginHeadToHeadChallenge(Player player, Player opponent, int deadLiftWeight)
+	public void BeginHeadToHeadChallenge(UserBase user, UserBase opponent, int deadLiftWeight)
 	{
-		Player winningPlayer;
+		UserBase winningPlayer;
 		
-		winningPlayer = (player.Stats.Strength > opponent.Stats.Strength) ? player : opponent;
+		winningPlayer = (user.userStats.strength > opponent.userStats.strength) ? user : opponent;
 		
-		if (player.Stats.Strength == opponent.Stats.Strength)
+		if (user.userStats.strength == opponent.userStats.strength)
 			winningPlayer = null;
 		
 		string finalMessage = "";
 		
 		if (winningPlayer != null)
-			finalMessage = (winningPlayer.Equals(player)) ? "You Won!" : opponent.PlayerName + " Won!";
+			finalMessage = (winningPlayer.Equals(user)) ? "You Won!" : opponent.name + " Won!";
 		else
 			finalMessage = "TIE!";
 		
@@ -105,30 +105,30 @@ public class ChallengeHandler : MonoBehaviour
 		temp.messageText.Text = finalMessage;
 	}
 	
-	public void BeginSoloCompetition(Player player, int deadLiftWeight)
+	public void BeginSoloCompetition(UserBase user, int deadLiftWeight)
 	{
-		if (player.CanDoDeadLift(deadLiftWeight) == true)
+		if (user.CanDoDeadLift(deadLiftWeight) == true)
 		{
 			string finalMessage = "You Just Deadlifted " + deadLiftWeight + "LBS! ";
 			int cashReward = 0;
 			int xpReward = 0;
 			
-			if (player.Stats.SoloCompetitionDeadliftRecord >= deadLiftWeight) // we have already deadlifted this weight
+			if (user.userStats.soloCompetitionDeadliftRecord >= deadLiftWeight) // we have already deadlifted this weight
 			{
 				cashReward = deadLiftWeight;
 				finalMessage += "Since you didnt beat a previous record, you earned $" + cashReward + " but no xp";
 			}
-			else if (player.Stats.SoloCompetitionDeadliftRecord < deadLiftWeight)  //this is a new record!
+			else if (user.userStats.soloCompetitionDeadliftRecord < deadLiftWeight)  //this is a new record!
 			{
 				cashReward = deadLiftWeight * 10;
-				xpReward = player.Stats.Level * 1000;
+				xpReward = user.userStats.level * 1000;
 				
 				finalMessage += "You Beat Your Record! You get $" + cashReward + " and " + xpReward + " XP";
 			}
 			
-			player.Stats.SetNewSoloCompetitionDeadliftRecord(deadLiftWeight);
-			player.Assets.ModifyCash(cashReward);
-			player.Stats.ModifyXP(xpReward);
+			user.userStats.SetNewSoloCompetitionDeadliftRecord(deadLiftWeight);
+			user.userAssets.ModifyCash(cashReward);
+			user.userStats.ModifyXP(xpReward);
 			
 			OneButtonPopup temp= PopupManager.CreatePopup<OneButtonPopup>() as OneButtonPopup;
 			temp.titleText.Text = "Finished Challenge";

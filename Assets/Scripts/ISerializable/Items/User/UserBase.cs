@@ -79,12 +79,6 @@ public class UserBase : ISerializableObjectBase , ISave
 		
 		itemContainer = new UserContainer();
 		
-		//stats = new PlayerStats();
-		//assets = new PlayerAssets();
-		
-		//stats.Init(this);
-		//assets.Init(this);
-		
 		activeBuffs = new List<Item_Buff>();
 		
 		myInstance = this;
@@ -129,6 +123,9 @@ public class UserBase : ISerializableObjectBase , ISave
 		
 		DownloadableObjectHandler.I.RemoveLoadCompletionDelegate(OnGameDataDidLoad);
 		CreateHud();
+		
+		userStats.myUser = this;
+		userAssets.myUser = this;
 	}
 	
 	void CreateHud()
@@ -174,20 +171,23 @@ public class UserBase : ISerializableObjectBase , ISave
 	{
 		base.UploadFileToServer<UserContainer>(itemContainer as UserContainer);
 	}
+	
 	/*
 	protected override IEnumerator DoUploadFileToServer<T>(T itemContainer)
 	{
-		//var form = new WWWForm();
+		var form = new WWWForm();
 		
-		//byte[] temp;
-		//if (fileType == XMLOrJson._XML)
-		//	temp = XMLSerializer<T>.Serialize(itemContainer).StringToByteArray();
-		//else
-			//temp = JsonFx.Json.JsonWriter.Serialize(itemContainer).StringToByteArray();
-			
-		//form.AddBinaryData("theFile", temp, FileNameFromCurrentFileType, "text/plain"); //add bytes to our form
-		Debug.Log(SystemInfo.deviceUniqueIdentifier);
-		WWW curUpload = new WWW("http://default-environment-f2jgms3epj.elasticbeanstalk.com/index.jsp?requestName=setRecord&id=100" + SystemInfo.deviceUniqueIdentifier + "&data=" + JsonFx.Json.JsonWriter.Serialize(itemContainer));
+		byte[] temp;
+		if (fileType == XMLOrJson._XML)
+			temp = XMLSerializer<T>.Serialize(itemContainer).StringToByteArray();
+		else
+			temp = JsonFx.Json.JsonWriter.Serialize(itemContainer).StringToByteArray();
+		
+		form.AddField("id", SystemInfo.deviceUniqueIdentifier);
+		form.AddBinaryData("data", temp, "text/plain"); //add bytes to our form
+		
+		string urlString = "http://default-environment-f2jgms3epj.elasticbeanstalk.com/index.jsp?requestName=setRecord";
+		WWW curUpload = new WWW(urlString, form);
 		
 			//5F288E0F-D262-59CC-B412-34528DBA1663
 			
@@ -203,6 +203,7 @@ public class UserBase : ISerializableObjectBase , ISave
 			ScreenLog.AddMessage(curUpload.error, ScreenLogType.Error);
 	}
 	*/
+	
 	protected override void OnFileDoesntExistsOnServer()
 	{
 		//we will create a new user here. This will be users first time playing
@@ -912,7 +913,7 @@ public class UserBase : ISerializableObjectBase , ISave
 		}
 		
 		guiRect.y += guiRect.height;
-		if (GUI.Button(guiRect, "XP " + userStats.xP + "/"+ GameValues.GetXPForLevel()))
+		if (GUI.Button(guiRect, "XP " + userStats.xP + "/"+ GameValues.GetXPForLevel(this)))
 		{
 			userStats.ModifyXP(userStats.level * 250);
 			//SaveLoadHelper.Save(this);

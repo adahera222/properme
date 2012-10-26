@@ -33,7 +33,7 @@ public class MuscleGroupHelper
 	
 	#region Methods
 	
-	public void IncreaseExcercisesDone(Player player, params MuscleGroup[] affectedMuscleGroups)
+	public void IncreaseExcercisesDone(UserBase user, params MuscleGroup[] affectedMuscleGroups)
 	{
 		foreach(MuscleGroup muscleGroup in affectedMuscleGroups)	
 		{
@@ -65,13 +65,13 @@ public class MuscleGroupHelper
 			}
 		}
 		
-		CheckForStrengthIncrease(player);
+		CheckForStrengthIncrease(user);
 		
 		//SaveLoadHelper.Save(this);
 		//TODO SAVE
 	}
 	
-	public bool CheckForStrengthIncrease(Player player)
+	public bool CheckForStrengthIncrease(UserBase user)
 	{
 		bool returnVal = false;
 		
@@ -79,7 +79,7 @@ public class MuscleGroupHelper
 		{
 			List<StrengthProgressionItem> items = StrengthProgressionValues.I.itemContainer.strengthProgression;
 			
-			if (quadExcercisesDone >= items[player.Stats.Strength + 1].quadExcercisesRequired) //check if we have enough to be completed
+			if (quadExcercisesDone >= items[user.userStats.strength + 1].quadExcercisesRequired) //check if we have enough to be completed
 				returnVal = true;
 			else //if we dont set to false and go to the end, because we cant increase strength if even one isnt there
 			{
@@ -87,7 +87,7 @@ public class MuscleGroupHelper
 				goto Finish;
 			}
 			
-			if (backExcercisesDone >= items[player.Stats.Strength + 1].backExcercisesRequired)
+			if (backExcercisesDone >= items[user.userStats.strength + 1].backExcercisesRequired)
 				returnVal = true;
 			else
 			{
@@ -95,7 +95,7 @@ public class MuscleGroupHelper
 				goto Finish;
 			}
 			
-			if (bicepExcercisesDone >= items[player.Stats.Strength + 1].bicepExcercisesRequired)
+			if (bicepExcercisesDone >= items[user.userStats.strength + 1].bicepExcercisesRequired)
 				returnVal = true;
 			else
 			{
@@ -103,7 +103,7 @@ public class MuscleGroupHelper
 				goto Finish;
 			}
 			
-			if (gluteExcercisesDone >= items[player.Stats.Strength + 1].gluteExcercisesRequired)
+			if (gluteExcercisesDone >= items[user.userStats.strength + 1].gluteExcercisesRequired)
 				returnVal = true;
 			else
 			{
@@ -111,7 +111,7 @@ public class MuscleGroupHelper
 				goto Finish;
 			}
 			
-			if (hamstringExcercisesDone >= items[player.Stats.Strength + 1].hamstringExcercisesRequired)
+			if (hamstringExcercisesDone >= items[user.userStats.strength + 1].hamstringExcercisesRequired)
 				returnVal = true;
 			else
 			{
@@ -119,7 +119,7 @@ public class MuscleGroupHelper
 				goto Finish;
 			}
 			
-			if (abExcercisesDone >= items[player.Stats.Strength + 1].abExcercisesRequired)
+			if (abExcercisesDone >= items[user.userStats.strength + 1].abExcercisesRequired)
 				returnVal = true;
 			else
 			{
@@ -131,7 +131,7 @@ public class MuscleGroupHelper
 		Finish:
 		
 		if (returnVal == true)
-			player.Stats.IncrementStrength();
+			user.userStats.IncrementStrength();
 		
 		return returnVal;
 	}

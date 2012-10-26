@@ -325,7 +325,7 @@ public class StorePopup : PopupBase, IPopup
 									//create new equipment and save the grid
 									Item_Equipment equipmentItemPlacing = Instantiate(clickedButton.item, freeBlock.myTransform.position, freeBlock.myTransform.rotation) as Item_Equipment;
 								
-									LocalPlayer.I.cameraControl.MoveCameraToBlock(freeBlock);//moves center of camera to new object
+									CameraControl.I.MoveCameraToBlock(freeBlock);//moves center of camera to new object
 									//LocalPlayer.I.cameraControl.currentDragObject = equipmentItemPlacing; //lets us drag object on creation
 								
 									freeBlock.myItem = equipmentItemPlacing;

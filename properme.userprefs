@@ -1,6 +1,9 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench ActiveDocument="../Desktop/LocalPlayer.cs">
+    <Files>
+      <File FileName="../Desktop/LocalPlayer.cs" Line="1" Column="1" />
+    </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
@@ -14,15 +17,15 @@
                   <Node name="Popup" expanded="True">
                     <Node name="Derived" expanded="True">
                       <Node name="Equipment" expanded="True" />
-                      <Node name="Fridge" expanded="True" />
+                      <Node name="Fridge" expanded="True">
+                        <Node name="FridgeItemButton.cs" selected="True" />
+                      </Node>
                       <Node name="Store" expanded="True" />
                     </Node>
                   </Node>
                 </Node>
                 <Node name="ISerializable" expanded="True">
-                  <Node name="Base" expanded="True">
-                    <Node name="ISerializableObjectBase.cs" selected="True" />
-                  </Node>
+                  <Node name="Base" expanded="True" />
                   <Node name="Items" expanded="True">
                     <Node name="AgeProgression" expanded="True" />
                     <Node name="Excercises" expanded="True" />

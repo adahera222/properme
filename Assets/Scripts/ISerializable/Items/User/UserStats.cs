@@ -1,16 +1,22 @@
 using UnityEngine;
 using System.Collections;
 using System;
+using JsonFx.Json;
+using System.Xml.Serialization;
 
 [System.Serializable]
 public class UserStats
 {
 	#region Primary
 	
+	[XmlIgnore]
+	[JsonIgnore]
+	public UserBase myUser;
+	
 	public int level;
 	public int age;
 	public int xP;
-	public float GetXPPercentage { get { return (float)xP / (float)GameValues.GetXPForLevel(); } } //Returns percentage between 0 and 1
+	public float GetXPPercentage { get { return (float)xP / (float)GameValues.GetXPForLevel(myUser); } } //Returns percentage between 0 and 1
 	public float stamina;
 	public int strength;
 	
@@ -37,11 +43,11 @@ public class UserStats
     {
 		int newVal = xP + addval;
 		
-		if (newVal >= GameValues.GetXPForLevel()) //We have reached a new level
+		if (newVal >= GameValues.GetXPForLevel(myUser)) //We have reached a new level
 		{
 			if (level + 1 < GameValues.levelMax)
 			{
-				xP = newVal - GameValues.GetXPForLevel(); //set to the remainder
+				xP = newVal - GameValues.GetXPForLevel(myUser); //set to the remainder
 				IncrementLevel();
 			}
 			else
@@ -117,8 +123,19 @@ public class UserStats
 	#region Challenges
 	
 	public int soloChallengeDeadliftRecord;
-	
 	public int soloCompetitionDeadliftRecord;
+	
+	public void SetNewSoloChallengeDeadliftRecord(int newVal)
+    {
+		soloChallengeDeadliftRecord = Mathf.Clamp(newVal, GameValues.deadliftWeightMin, GameValues.deadliftWeightMax);
+		myUser.SaveData();
+    }
+	
+	public void SetNewSoloCompetitionDeadliftRecord(int newVal)
+    {
+		soloCompetitionDeadliftRecord = Mathf.Clamp(newVal, GameValues.deadliftWeightMin, GameValues.deadliftWeightMax);
+		myUser.SaveData();
+    }
 	
 	#endregion
 

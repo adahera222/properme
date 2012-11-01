@@ -88,7 +88,6 @@
      <Compile Include="Assets\ThirdParty\EZ GUI\PatAdditions\Editor\SimpleSpriteInspector.cs" />
      <Compile Include="Assets\ThirdParty\EZ GUI\PatAdditions\Editor\SpriteTextInspector.cs" />
      <None Include="Assets\ISerializableBackup\PrefixValues.xml" />
-     <None Include="Assets\Plugins\JsonFx.Json.Unity3d\Release\License.txt" />
      <None Include="Assets\Shaders\Mobile\Miscellaneous Shaders\Mobile Background.shader" />
      <None Include="Assets\Doxygen\Editor\Resources\BaseDoxyfile.txt" />
      <None Include="Assets\Shaders\Mobile\Vertex Colored Shaders\Mobile Transparent Vertex Lit.shader" />
@@ -109,7 +108,6 @@
      <None Include="Assets\Fonts\Font.txt" />
      <None Include="Assets\Shaders\Mobile\Vertex Colored Shaders\Mobile Vertex Colored.shader" />
      <None Include="Assets\Doxygen\ReadMe.txt" />
-     <None Include="Assets\Plugins\JsonFx.Json.Unity3d\Release\Readme.txt" />
      <None Include="Assets\Shaders\Mobile\Miscellaneous Shaders\Mobile Detail.shader" />
  <Reference Include="Library\ScriptAssemblies\Assembly-UnityScript-firstpass">
  <HintPath>Library\ScriptAssemblies\Assembly-UnityScript-firstpass.dll</HintPath>
@@ -126,8 +124,8 @@
  <Reference Include="Assets\Plugins\PatStuff">
  <HintPath>Assets\Plugins\PatStuff.dll</HintPath>
  </Reference>
- <Reference Include="Assets\Plugins\JsonFx.Json.Unity3d\Release\JsonFx.Json">
- <HintPath>Assets\Plugins\JsonFx.Json.Unity3d\Release\JsonFx.Json.dll</HintPath>
+ <Reference Include="Assets\Plugins\JsonFx.Json">
+ <HintPath>Assets\Plugins\JsonFx.Json.dll</HintPath>
  </Reference>
  <Reference Include="Assets\Plugins\Prime31\P31RestKit">
  <HintPath>Assets\Plugins\Prime31\P31RestKit.dll</HintPath>

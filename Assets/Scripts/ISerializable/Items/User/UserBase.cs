@@ -172,26 +172,24 @@ public class UserBase : ISerializableObjectBase , ISave
 		base.UploadFileToServer<UserContainer>(itemContainer as UserContainer);
 	}
 	
-	/*
+	
 	protected override IEnumerator DoUploadFileToServer<T>(T itemContainer)
 	{
 		var form = new WWWForm();
 		
-		byte[] temp;
+		string temp;
 		if (fileType == XMLOrJson._XML)
-			temp = XMLSerializer<T>.Serialize(itemContainer).StringToByteArray();
+			temp = XMLSerializer<T>.Serialize(itemContainer);
 		else
-			temp = JsonFx.Json.JsonWriter.Serialize(itemContainer).StringToByteArray();
+			temp = JsonFx.Json.JsonWriter.Serialize(itemContainer);
 		
 		form.AddField("id", SystemInfo.deviceUniqueIdentifier);
-		form.AddBinaryData("data", temp, "text/plain"); //add bytes to our form
+		form.AddField("data", temp);
+		form.AddField("requestName", "setRecord");
 		
-		string urlString = "http://default-environment-f2jgms3epj.elasticbeanstalk.com/index.jsp?requestName=setRecord";
+		string urlString = "http://default-environment-f2jgms3epj.elasticbeanstalk.com/index.jsp";
 		WWW curUpload = new WWW(urlString, form);
-		
-			//5F288E0F-D262-59CC-B412-34528DBA1663
-			
-			//"//, form); //create upload from our php script
+		//5F288E0F-D262-59CC-B412-34528DBA1663
 		
 		yield return curUpload;
 		
@@ -202,7 +200,7 @@ public class UserBase : ISerializableObjectBase , ISave
 		else
 			ScreenLog.AddMessage(curUpload.error, ScreenLogType.Error);
 	}
-	*/
+	
 	
 	protected override void OnFileDoesntExistsOnServer()
 	{
@@ -232,6 +230,47 @@ public class UserBase : ISerializableObjectBase , ISave
 	public override void DownloadFileFromServer<T>(OnSerializableDownloadComplete completionDelegate)
 	{
 		base.DownloadFileFromServer<UserContainer>(completionDelegate);
+	}
+	
+	protected override IEnumerator DoDownloadFileFromServer<T>(OnSerializableDownloadComplete completionDelegate)
+	{
+		var form = new WWWForm();
+		
+		form.AddField("id", SystemInfo.deviceUniqueIdentifier);
+		form.AddField("requestName", "getRecord");
+		
+		string urlString = "http://default-environment-f2jgms3epj.elasticbeanstalk.com/index.jsp";
+		WWW download = new WWW(urlString, form);
+		//5F288E0F-D262-59CC-B412-34528DBA1663
+		
+		yield return download;
+		
+		if (download.error == null)
+		{
+			T temp;
+			
+			if (fileType == XMLOrJson._XML)
+				temp = XMLSerializer<T>.Deserialize(download.text);
+			else
+				temp = JsonFx.Json.JsonReader.Deserialize<T>(download.text);
+			
+			if (temp != null)
+				OnDownloadFromServerComplete<T>(temp);
+			
+			if (saveToDiscOnDownload == true)
+				FileHelper.SaveStringToPath(Application.persistentDataPath + "/", FileNameFromCurrentFileType, download.text);
+			
+			if (completionDelegate != null)
+				completionDelegate(this, true, DownloadSource.Server);
+		}
+		else
+		{
+			ScreenLog.AddMessage(download.error, ScreenLogType.Error);
+			
+			if (completionDelegate != null)
+				completionDelegate(this, false, DownloadSource.None);
+			
+		}
 	}
 	
 	protected override void OnDownloadFromServerComplete<T>(T downloadedContainer)

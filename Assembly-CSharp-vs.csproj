@@ -18,7 +18,7 @@
 	<DebugType>full</DebugType>
 	<Optimize>false</Optimize>
 	<OutputPath>Temp\bin\Debug\</OutputPath>
-	<DefineConstants>DEBUG;TRACE;UNITY_3_5_5;UNITY_3_5;UNITY_EDITOR;ENABLE_PROFILER;UNITY_IOS;UNITY_IPHONE;ENABLE_GENERICS;ENABLE_TERRAIN;ENABLE_WEBCAM;ENABLE_MICROPHONE;ENABLE_NETWORK;ENABLE_CLOTH;ENABLE_WWW</DefineConstants>
+	<DefineConstants>DEBUG;TRACE;UNITY_3_5_6;UNITY_3_5;UNITY_EDITOR;ENABLE_PROFILER;UNITY_IOS;UNITY_IPHONE;ENABLE_GENERICS;ENABLE_TERRAIN;ENABLE_WEBCAM;ENABLE_MICROPHONE;ENABLE_NETWORK;ENABLE_CLOTH;ENABLE_WWW</DefineConstants>
 	<ErrorReport>prompt</ErrorReport>
 	<WarningLevel>4</WarningLevel>
 	<NoWarn>0169</NoWarn>
@@ -78,10 +78,6 @@
      <Compile Include="Assets\Scripts\ISerializable\Items\Excercises\ExcerciseItem.cs" />
      <Compile Include="Assets\Scripts\ISerializable\Items\Excercises\ExcerciseValues.cs" />
      <Compile Include="Assets\Scripts\ISerializable\Items\Excercises\ExcerciseValuesContainer.cs" />
-     <Compile Include="Assets\Scripts\ISerializable\Items\GridBlocks\BlockHelper.cs" />
-     <Compile Include="Assets\Scripts\ISerializable\Items\GridBlocks\GridBlockItem.cs" />
-     <Compile Include="Assets\Scripts\ISerializable\Items\GridBlocks\GridBlockValues.cs" />
-     <Compile Include="Assets\Scripts\ISerializable\Items\GridBlocks\GridBlockValuesContainer.cs" />
      <Compile Include="Assets\Scripts\ISerializable\Items\LevelProgresion\LevelProgressionItem.cs" />
      <Compile Include="Assets\Scripts\ISerializable\Items\LevelProgresion\LevelProgressionValues.cs" />
      <Compile Include="Assets\Scripts\ISerializable\Items\LevelProgresion\LevelProgressionValuesContainer.cs" />
@@ -91,6 +87,9 @@
      <Compile Include="Assets\Scripts\ISerializable\Items\StrengthProgression\StrengthProgressionItem.cs" />
      <Compile Include="Assets\Scripts\ISerializable\Items\StrengthProgression\StrengthProgressionValues.cs" />
      <Compile Include="Assets\Scripts\ISerializable\Items\StrengthProgression\StrengthProgressionValuesContainer.cs" />
+     <Compile Include="Assets\Scripts\ISerializable\Items\User\BlockHelper.cs" />
+     <Compile Include="Assets\Scripts\ISerializable\Items\User\GridBlockItem.cs" />
+     <Compile Include="Assets\Scripts\ISerializable\Items\User\GridBlockValuesContainer.cs" />
      <Compile Include="Assets\Scripts\ISerializable\Items\User\UserAssets.cs" />
      <Compile Include="Assets\Scripts\ISerializable\Items\User\UserBase.cs" />
      <Compile Include="Assets\Scripts\ISerializable\Items\User\UserContainer.cs" />

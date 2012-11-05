@@ -4,10 +4,11 @@ using JsonFx.Json;
 public class UserContainer
 {
 	public string playerName = "Jon Smith";
-	private string testSTRING = "PPPPPPPPPPPPPPPPP";
 	
 	public UserStats userStats;
 	public UserAssets userAssets;
+	
+	public GridBlockValuesContainer gridBlocksContainer;
 	
 	public UserContainer()
 	{
@@ -15,5 +16,7 @@ public class UserContainer
 			userStats = new UserStats();
 		if (userAssets == null)
 			userAssets = new UserAssets();
+		if (gridBlocksContainer == null)
+			gridBlocksContainer = new GridBlockValuesContainer();
 	}
 }

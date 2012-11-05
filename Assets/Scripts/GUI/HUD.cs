@@ -50,6 +50,8 @@ public class HUD : MonoBehaviour
 		fatigueBar.AddInputDelegate(CoinButtonClickedDelegate);
 		
 		friendButton.AddInputDelegate(FriendButtonClickedDelegate);
+		
+		gameObject.name = this.GetType().ToString();
 	}
 	
 	#endregion

@@ -10,6 +10,6 @@ public class GridBlockItem
 	[JsonFx.Json.JsonIgnore]
 	public BlockHelper myBlock;
 	
-	public ItemType myItemType = ItemType.Automatic;
+	public ItemType myItemType = ItemType.A;
 	public int myItemID = -1;
 }

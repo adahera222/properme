@@ -6,12 +6,12 @@ using PatStuff;
 
 public enum ItemType
 {
-	Automatic = 0,
-	Equipment = 1,
-	Consumable = 2,
-	ClothingOrGear = 3,
+	A = 0,
+	Eqpmnt = 1,
+	Cnsmbl = 2,
+	ClothGear = 3,
 	Buff = 4,
-	Decoration = 5
+	Decor = 5
 }
 
 [System.Serializable]
@@ -45,6 +45,6 @@ public class Item_Base : MonoBehaviour
 	
 	public virtual ItemType GetItemType()
 	{
-		return ItemType.Automatic;	
+		return ItemType.A;	
 	}
 }

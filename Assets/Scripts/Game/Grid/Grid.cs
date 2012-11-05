@@ -52,11 +52,12 @@ public class Grid : MonoBehaviour, ISave, ILoad
 		transform.rotation = new Quaternion(0, 0, 0, 0); // set to zero before we build the grid
 		
 		List<Vector3> allPoints = new List<Vector3>();
-		for (int x = 0; x < GridBlockValues.I.itemContainer.gridSize; x++)
-			for (int z = 0; z < GridBlockValues.I.itemContainer.gridSize; z++)
+
+		for (int x = 0; x < UserBase.I.gridBlocksContainer.gridSize; x++)
+			for (int z = 0; z < UserBase.I.gridBlocksContainer.gridSize; z++)
 				allPoints.Add(new Vector3(blockSize.x * x, 0.0f, -blockSize.y * z)); //set up array of points based on the block values and grid size
 		
-		transform.position = new Vector3( ( (blockSize.x / 2) * GridBlockValues.I.itemContainer.gridSize) - (blockSize.x / 2), 0, ( (-blockSize.y / 2) * GridBlockValues.I.itemContainer.gridSize) + (blockSize.y / 2));
+		transform.position = new Vector3( ( (blockSize.x / 2) * UserBase.I.gridBlocksContainer.gridSize) - (blockSize.x / 2), 0, ( (-blockSize.y / 2) * UserBase.I.gridBlocksContainer.gridSize) + (blockSize.y / 2));
 		
 		GameObject temp = new GameObject("BlockHelpers");
 		temp.transform.parent = transform;
@@ -74,8 +75,8 @@ public class Grid : MonoBehaviour, ISave, ILoad
 			newBlock.myTransform.position = allPoints[q];
 			newBlock.myTransform.parent = temp.transform;
 			
-			newBlock.myGridBlockItem = GridBlockValues.I.itemContainer.gridBlockItems[q];
-			GridBlockValues.I.itemContainer.gridBlockItems[q].myBlock = newBlock;
+			newBlock.myGridBlockItem = UserBase.I.gridBlocksContainer.gridBlockItems[q];
+			UserBase.I.gridBlocksContainer.gridBlockItems[q].myBlock = newBlock;
 		}
 		
 		transform.rotation = originalRotation;
@@ -86,14 +87,14 @@ public class Grid : MonoBehaviour, ISave, ILoad
 		cube.transform.parent = transform;
 		cube.transform.localPosition = Vector3.zero;
 		cube.transform.rotation = transform.rotation;
-		cube.transform.localScale = new Vector3(blockSize.x * GridBlockValues.I.itemContainer.gridSize, 0.2f, blockSize.y * GridBlockValues.I.itemContainer.gridSize);
+		cube.transform.localScale = new Vector3(blockSize.x * UserBase.I.gridBlocksContainer.gridSize, 0.2f, blockSize.y * UserBase.I.gridBlocksContainer.gridSize);
 	}
 	
 	void CreateDefaultGridItems()
 	{
-		if ((doorPrefab.gridStartingPos - 1) * GridBlockValues.I.itemContainer.gridSize <= GridBlockValues.I.itemContainer.gridBlockItems.Count && (doorPrefab.gridStartingPos - 1) * GridBlockValues.I.itemContainer.gridSize >= 0)  // -1 so we start at block 0
+		if ((doorPrefab.gridStartingPos - 1) * UserBase.I.gridBlocksContainer.gridSize <= UserBase.I.gridBlocksContainer.gridBlockItems.Count && (doorPrefab.gridStartingPos - 1) * UserBase.I.gridBlocksContainer.gridSize >= 0)  // -1 so we start at block 0
 		{
-			BlockHelper doorStartBlock = GridBlockValues.I.itemContainer.gridBlockItems[(doorPrefab.gridStartingPos - 1) * GridBlockValues.I.itemContainer.gridSize].myBlock;
+			BlockHelper doorStartBlock = UserBase.I.gridBlocksContainer.gridBlockItems[(doorPrefab.gridStartingPos - 1) * UserBase.I.gridBlocksContainer.gridSize].myBlock;
 			
 			Door newDoor = Instantiate(doorPrefab, doorStartBlock.myTransform.position, doorStartBlock.myTransform.rotation) as Door;
 			newDoor.currentBlockID = doorStartBlock.blockID;
@@ -104,9 +105,9 @@ public class Grid : MonoBehaviour, ISave, ILoad
 		else
 			ScreenLog.AddMessage("ERROR Couldnt spawn " + doorPrefab.GetType().ToString() + ". Check " + StringExtensions.GetVariableName(()=> doorPrefab.gridStartingPos) + " variable in " + doorPrefab.GetType().ToString() + " Prefab and gridsize", ScreenLogType.Error);
 		
-		if ((lapTopPrefab.gridStartingPos - 1) * GridBlockValues.I.itemContainer.gridSize <= GridBlockValues.I.itemContainer.gridBlockItems.Count && (lapTopPrefab.gridStartingPos - 1) * GridBlockValues.I.itemContainer.gridSize >= 0)  // -1 so we start at block 0
+		if ((lapTopPrefab.gridStartingPos - 1) * UserBase.I.gridBlocksContainer.gridSize <= UserBase.I.gridBlocksContainer.gridBlockItems.Count && (lapTopPrefab.gridStartingPos - 1) * UserBase.I.gridBlocksContainer.gridSize >= 0)  // -1 so we start at block 0
 		{
-			BlockHelper lapTopStartBlock = GridBlockValues.I.itemContainer.gridBlockItems[(lapTopPrefab.gridStartingPos - 1) * GridBlockValues.I.itemContainer.gridSize].myBlock;
+			BlockHelper lapTopStartBlock = UserBase.I.gridBlocksContainer.gridBlockItems[(lapTopPrefab.gridStartingPos - 1) * UserBase.I.gridBlocksContainer.gridSize].myBlock;
 			
 			Laptop newLapTop = Instantiate(lapTopPrefab, lapTopStartBlock.myTransform.position, lapTopStartBlock.myTransform.rotation) as Laptop;
 			newLapTop.currentBlockID = lapTopStartBlock.blockID;
@@ -117,9 +118,9 @@ public class Grid : MonoBehaviour, ISave, ILoad
 		else
 			ScreenLog.AddMessage("ERROR Couldnt spawn " + lapTopPrefab.GetType().ToString() + ". Check " + StringExtensions.GetVariableName(()=> lapTopPrefab.gridStartingPos) + " variable in " + lapTopPrefab.GetType().ToString() + " Prefab and gridsize", ScreenLogType.Error);
 		
-		if ((fridgePrefab.gridStartingPos - 1) * GridBlockValues.I.itemContainer.gridSize <= GridBlockValues.I.itemContainer.gridBlockItems.Count && (fridgePrefab.gridStartingPos - 1) * GridBlockValues.I.itemContainer.gridSize >= 0)  // -1 so we start at block 0
+		if ((fridgePrefab.gridStartingPos - 1) * UserBase.I.gridBlocksContainer.gridSize <= UserBase.I.gridBlocksContainer.gridBlockItems.Count && (fridgePrefab.gridStartingPos - 1) * UserBase.I.gridBlocksContainer.gridSize >= 0)  // -1 so we start at block 0
 		{
-			BlockHelper fridgeStartBlock = GridBlockValues.I.itemContainer.gridBlockItems[(fridgePrefab.gridStartingPos - 1) * GridBlockValues.I.itemContainer.gridSize].myBlock;
+			BlockHelper fridgeStartBlock = UserBase.I.gridBlocksContainer.gridBlockItems[(fridgePrefab.gridStartingPos - 1) * UserBase.I.gridBlocksContainer.gridSize].myBlock;
 			
 			Fridge newFridge = Instantiate(fridgePrefab, fridgeStartBlock.myTransform.position, fridgeStartBlock.myTransform.rotation) as Fridge;
 			newFridge.currentBlockID = fridgeStartBlock.blockID;
@@ -133,15 +134,15 @@ public class Grid : MonoBehaviour, ISave, ILoad
 	
 	public BlockHelper GetBlock(int blockID)
 	{
-		if (blockID >= GridBlockValues.I.itemContainer.gridBlockItems.Count)
+		if (blockID >= UserBase.I.gridBlocksContainer.gridBlockItems.Count)
 		{
-			ScreenLog.AddMessage(blockID + " Is greater than the length of the array (" + GridBlockValues.I.itemContainer.gridBlockItems.Count + ")", ScreenLogType.Error);	
+			ScreenLog.AddMessage(blockID + " Is greater than the length of the array (" + UserBase.I.gridBlocksContainer.gridBlockItems.Count + ")", ScreenLogType.Error);	
 			return null;
 		}
 		
-		if (GridBlockValues.I.itemContainer.gridBlockItems != null && blockID >= 0 && blockID < GridBlockValues.I.itemContainer.gridBlockItems.Count)
-			if (GridBlockValues.I.itemContainer.gridBlockItems[blockID] != null)
-				return GridBlockValues.I.itemContainer.gridBlockItems[blockID].myBlock;
+		if (UserBase.I.gridBlocksContainer.gridBlockItems != null && blockID >= 0 && blockID < UserBase.I.gridBlocksContainer.gridBlockItems.Count)
+			if (UserBase.I.gridBlocksContainer.gridBlockItems[blockID] != null)
+				return UserBase.I.gridBlocksContainer.gridBlockItems[blockID].myBlock;
 		else
 			ScreenLog.AddMessage("ERROR BLOCK " + blockID + " IS NULL", ScreenLogType.Error);
 		
@@ -164,7 +165,7 @@ public class Grid : MonoBehaviour, ISave, ILoad
 	
 	public void UpdateGridData()
 	{
-		foreach(GridBlockItem block in GridBlockValues.I.itemContainer.gridBlockItems) //TODO could find a faster way to do this instead of looping through all blocks
+		foreach(GridBlockItem block in UserBase.I.gridBlocksContainer.gridBlockItems) //TODO could find a faster way to do this instead of looping through all blocks
 		{
 			if (block.myBlock.myItem != null)
 			{
@@ -174,7 +175,7 @@ public class Grid : MonoBehaviour, ISave, ILoad
 			else
 			{
 				block.myItemID = -1;
-				block.myItemType = ItemType.Automatic;
+				block.myItemType = ItemType.A;
 			}
 		}
 	}
@@ -185,7 +186,7 @@ public class Grid : MonoBehaviour, ISave, ILoad
 		
 		while (didFindBlock == false)
 		{
-			BlockHelper x = GetBlock(Random.Range(0, GridBlockValues.I.itemContainer.gridBlockItems.Count - 1));
+			BlockHelper x = GetBlock(Random.Range(0, UserBase.I.gridBlocksContainer.gridBlockItems.Count - 1));
 			
 			if (x.myItem == null) //make sure we dont have anything on this grid yet
 			{
@@ -199,7 +200,7 @@ public class Grid : MonoBehaviour, ISave, ILoad
 	
 	public bool DoesItemExistOnGrid(Item_GridHelper itemToCheck)
 	{
-		foreach(GridBlockItem block in GridBlockValues.I.itemContainer.gridBlockItems)
+		foreach(GridBlockItem block in UserBase.I.gridBlocksContainer.gridBlockItems)
 			if (block.myBlock.myItem != null && block.myBlock.myItem.GetItemType() == itemToCheck.GetItemType() && block.myBlock.myItem.itemID == itemToCheck.itemID)
 				return true;
 		
@@ -212,16 +213,16 @@ public class Grid : MonoBehaviour, ISave, ILoad
 	
 	public void SaveData()
 	{
-		GridBlockValues.I.UploadFileToServer<GridBlockValuesContainer>(GridBlockValues.I.itemContainer);
+		UserBase.I.SaveData();
 	}
 	
 	public void LoadData() //if this is false, it means we will assume this is a brand new game and create a new grid
 	{
-		if (GridBlockValues.I.itemContainer.gridBlockItems.Count <= 0) //if this is null we did not load
+		if (UserBase.I.gridBlocksContainer.gridBlockItems.Count <= 0) //if this is null we did not load
 		{
-			GridBlockValues.I.itemContainer.gridBlockItems = new List<GridBlockItem>(0);
-			for (int x = 0; x < GridBlockValues.I.itemContainer.gridSize * GridBlockValues.I.itemContainer.gridSize; x++)
-				GridBlockValues.I.itemContainer.gridBlockItems.Add(new GridBlockItem());
+			UserBase.I.gridBlocksContainer.gridBlockItems = new List<GridBlockItem>(0);
+			for (int x = 0; x < UserBase.I.gridBlocksContainer.gridSize * UserBase.I.gridBlocksContainer.gridSize; x++)
+				UserBase.I.gridBlocksContainer.gridBlockItems.Add(new GridBlockItem());
 			
 			CreateGrid();
 			CreateDefaultGridItems();
@@ -234,19 +235,19 @@ public class Grid : MonoBehaviour, ISave, ILoad
 			Object[] allGridItems = Resources.LoadAll("Items", typeof(Item_GridHelper));
 			int itemTypeMaxVal = System.Enum.GetValues(typeof(ItemType)).Length;
 			
-			for (int x = 0; x < GridBlockValues.I.itemContainer.gridBlockItems.Count; x++)
+			for (int x = 0; x < UserBase.I.gridBlocksContainer.gridBlockItems.Count; x++)
 			{
 				//************************************ not >= because if it is 0 then it is item type Automatic, which we dont load
-				if ((int)GridBlockValues.I.itemContainer.gridBlockItems[x].myItemType > 0 && (int)GridBlockValues.I.itemContainer.gridBlockItems[x].myItemType < itemTypeMaxVal)
+				if ((int)UserBase.I.gridBlocksContainer.gridBlockItems[x].myItemType > 0 && (int)UserBase.I.gridBlocksContainer.gridBlockItems[x].myItemType < itemTypeMaxVal)
 				{
 					//make sure we need to load this item
 					foreach(Item_GridHelper gridItem in allGridItems)
 					{
-						if ((ItemType)GridBlockValues.I.itemContainer.gridBlockItems[x].myItemType == gridItem.GetItemType() && (int)GridBlockValues.I.itemContainer.gridBlockItems[x].myItemID == gridItem.itemID) //we found the correct item 
+						if ((ItemType)UserBase.I.gridBlocksContainer.gridBlockItems[x].myItemType == gridItem.GetItemType() && (int)UserBase.I.gridBlocksContainer.gridBlockItems[x].myItemID == gridItem.itemID) //we found the correct item 
 						{
-							Item_GridHelper tempItem = Instantiate(gridItem, GridBlockValues.I.itemContainer.gridBlockItems[x].myBlock.myTransform.position, GridBlockValues.I.itemContainer.gridBlockItems[x].myBlock.myTransform.rotation) as Item_GridHelper;
-							tempItem.currentBlockID = GridBlockValues.I.itemContainer.gridBlockItems[x].myBlock.blockID;
-							GridBlockValues.I.itemContainer.gridBlockItems[x].myBlock.myItem = tempItem;
+							Item_GridHelper tempItem = Instantiate(gridItem, UserBase.I.gridBlocksContainer.gridBlockItems[x].myBlock.myTransform.position, UserBase.I.gridBlocksContainer.gridBlockItems[x].myBlock.myTransform.rotation) as Item_GridHelper;
+							tempItem.currentBlockID = UserBase.I.gridBlocksContainer.gridBlockItems[x].myBlock.blockID;
+							UserBase.I.gridBlocksContainer.gridBlockItems[x].myBlock.myItem = tempItem;
 						}
 					}
 				}

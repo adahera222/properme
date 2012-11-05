@@ -6,6 +6,6 @@ public class Item_Decoration : Item_Base
 {
 	public override ItemType GetItemType()
 	{
-		return ItemType.Decoration;
+		return ItemType.Decor;
 	}
 }

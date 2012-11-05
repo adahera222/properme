@@ -2,16 +2,18 @@ using System.Collections.Generic;
 using JsonFx.Json;
 using System.Xml.Serialization;
 using PatStuff;
+using UnityEngine;
 
 [System.Serializable]
 public class UserAssets
 {
 	[XmlIgnore]
 	[JsonIgnore]
+	[HideInInspector]
 	public UserBase myUser;
 	
-	public int cash;
-    public int coins;
+	public int cash = GameValues.startCash;
+    public int coins = GameValues.startCoin;
 	
 	public List<ItemHandler> allItems;
 	[XmlIgnore]

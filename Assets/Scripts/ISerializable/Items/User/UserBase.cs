@@ -31,7 +31,7 @@ public class UserBase : ISerializableObjectBase , ISave
 	protected List<Item_Buff> activeBuffs;
 	public List<Item_Buff> ActiveBuffs{ get{ return activeBuffs; } }
 	
-	#region USERAccessors
+	#region SerializableStuff
 	
 	public UserContainer itemContainer;
 	
@@ -41,9 +41,6 @@ public class UserBase : ISerializableObjectBase , ISave
 		{
 			if (itemContainer == null)
 				itemContainer = new UserContainer();
-			
-			if (itemContainer.userAssets == null)
-				itemContainer.userAssets = new UserAssets();
 			
 			return itemContainer.userAssets;
 		}
@@ -56,10 +53,18 @@ public class UserBase : ISerializableObjectBase , ISave
 			if (itemContainer == null)
 				itemContainer = new UserContainer();
 			
-			if (itemContainer.userStats == null)
-				itemContainer.userStats = new UserStats();
-			
 			return itemContainer.userStats;
+		}
+	}
+	
+	public GridBlockValuesContainer gridBlocksContainer
+	{
+		get
+		{
+			if (itemContainer == null)
+				itemContainer = new UserContainer();
+			
+			return itemContainer.gridBlocksContainer;
 		}
 	}
 	
@@ -133,8 +138,12 @@ public class UserBase : ISerializableObjectBase , ISave
 		if (hud != null)
 			return;
 		
+		foreach(HUD h in GameObject.FindObjectsOfType(typeof(HUD)))
+			Destroy(h.gameObject); //make sure we only have one
+		
 		hud = Instantiate(hudPrefab, Vector3.zero, Quaternion.identity) as HUD;
 		hud.transform.parent = transform;
+		
 		hud.Init(this);
 	}
 	
@@ -199,32 +208,6 @@ public class UserBase : ISerializableObjectBase , ISave
 			ScreenLog.AddMessage(curUpload.text);
 		else
 			ScreenLog.AddMessage(curUpload.error, ScreenLogType.Error);
-	}
-	
-	
-	protected override void OnFileDoesntExistsOnServer()
-	{
-		//we will create a new user here. This will be users first time playing
-		userAssets.cash = GameValues.startCash;
-		userAssets.coins = GameValues.startCoin;
-		
-		//Primary
-		userStats.level =  GameValues.levelMin;
-		userStats.age = GameValues.ageMin;
-		userStats.xP = GameValues.xPMin;
-		userStats.stamina = GameValues.staminaMin;
-		userStats.strength = GameValues.strengthMin;
-		
-		//Secondary
-		userStats.fatigue = GameValues.fatigueMax / 2;
-		userStats.hunger = GameValues.hungerMin;
-
-		
-		//Challenges
-		userStats.soloChallengeDeadliftRecord = GameValues.deadliftWeightMin;
-		userStats.soloCompetitionDeadliftRecord = GameValues.deadliftWeightMin;
-		
-		CreateHud();
 	}
 	
 	public override void DownloadFileFromServer<T>(OnSerializableDownloadComplete completionDelegate)
@@ -316,6 +299,13 @@ public class UserBase : ISerializableObjectBase , ISave
 		PlayerPrefs.SetString(GetLastQuitTimePrefKey, DateTime.Now.ToString());
 		PlayerPrefs.Save();
 		SaveData();
+		
+#if UNITY_EDITOR
+	
+		foreach(HUD h in GameObject.FindObjectsOfType(typeof(HUD)))
+			Destroy(h.gameObject); //these sometimes dont get destroyed for some reason
+		
+#endif
 		//SaveLoadHelper.HardSave(this);
 	}
 	
@@ -1102,7 +1092,7 @@ public class UserBase : ISerializableObjectBase , ISave
 		
 		if (GUI.Button(c, "DELETEALLDATA"))
 		{
-			GridBlockValues.I.DeleteFileFromServer();
+			//GridBlockValues.I.DeleteFileFromServer();
 			DeleteFileFromServer();
 			
 			PlayerPrefs.DeleteAll();

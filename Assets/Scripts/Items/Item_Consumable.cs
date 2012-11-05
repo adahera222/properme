@@ -17,6 +17,6 @@ public class Item_Consumable : Item_Base
 	
 	public override ItemType GetItemType()
 	{
-		return ItemType.Consumable;
+		return ItemType.Cnsmbl;
 	}
 }

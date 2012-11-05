@@ -11,14 +11,15 @@ public class UserStats
 	
 	[XmlIgnore]
 	[JsonIgnore]
+	[HideInInspector]
 	public UserBase myUser;
 	
-	public int level;
-	public int age;
-	public int xP;
+	public int level =  GameValues.levelMin;
+	public int age = GameValues.ageMin;
+	public int xP = GameValues.xPMin;
 	public float GetXPPercentage { get { return (float)xP / (float)GameValues.GetXPForLevel(myUser); } } //Returns percentage between 0 and 1
-	public float stamina;
-	public int strength;
+	public float stamina = GameValues.staminaMin;
+	public int strength = GameValues.strengthMin;
 	
     public void IncrementLevel()
     {
@@ -89,8 +90,8 @@ public class UserStats
 	
 	#region Secondary
 	
-	public float fatigue;
-	public float hunger;
+	public float fatigue = GameValues.fatigueMin;
+	public float hunger = GameValues.hungerMin;
 
 	public float GetFatiguePercentage { get { return fatigue / GameValues.fatigueMax; } } //Returns percentage between 0 and 1
 	public float GetHungerPercentage { get { return hunger / GameValues.hungerMax; } } //Returns percentage between 0 and 1
@@ -122,8 +123,8 @@ public class UserStats
 	
 	#region Challenges
 	
-	public int soloChallengeDeadliftRecord;
-	public int soloCompetitionDeadliftRecord;
+	public int soloChallengeDeadliftRecord  = GameValues.deadliftWeightMin;
+	public int soloCompetitionDeadliftRecord = GameValues.deadliftWeightMin;
 	
 	public void SetNewSoloChallengeDeadliftRecord(int newVal)
     {

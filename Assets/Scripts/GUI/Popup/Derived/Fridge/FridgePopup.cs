@@ -60,7 +60,7 @@ public class FridgePopup : PopupBase, IPopup
 		{
 			ItemType curItemType = curItem.item.GetItemType();
 			
-			if (curItemType == ItemType.Consumable || curItemType == ItemType.Buff)
+			if (curItemType == ItemType.Cnsmbl || curItemType == ItemType.Buff)
 			{
 				//CREATE BUTTON FOR EACH ITEM
 				FridgeItemButton temp = Instantiate(fridgeItemButtonPrefab, Vector3.zero, Quaternion.identity) as FridgeItemButton;
@@ -107,7 +107,7 @@ public class FridgePopup : PopupBase, IPopup
             if (clickedButton == null)
                 return;
 			
-			if (clickedButton.myItem.item.GetItemType() == ItemType.Consumable)
+			if (clickedButton.myItem.item.GetItemType() == ItemType.Cnsmbl)
 			{
 				itemToUseAfterConfirmation = clickedButton;
 				

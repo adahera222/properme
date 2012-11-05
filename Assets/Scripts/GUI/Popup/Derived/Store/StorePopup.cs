@@ -28,7 +28,7 @@ public class StorePopup : PopupBase, IPopup
 
     public void PreInit()
     {
-		currentItemType = ItemType.Automatic;
+		currentItemType = ItemType.A;
 		
         titleText.maxWidth = background.width - titleTextSidePadding;
         titleText.Text = "Store";
@@ -49,14 +49,14 @@ public class StorePopup : PopupBase, IPopup
 		
 		SetUpTopBarButtons();
 		
-		PopulateItemScrollList(ItemType.Equipment); //default to equipment
+		PopulateItemScrollList(ItemType.Eqpmnt); //default to equipment
     }
 	
 	void SetUpTopBarButtons()
 	{
 		equipmentButton.Init();
 		equipmentButton.button.SetSize(topBarScrollList.viewableArea.x / 5, topBarScrollList.viewableArea.y); //RESIZE THESE BUTTONS TO FIT PEFECTLY IN THE TOP BAR SCROLL LIST
-		equipmentButton.button.Text = "Eqpmnt";
+		equipmentButton.button.Text = "ItemType.Eqpmnt";
 		equipmentButton.button.spriteText.SetCharacterSize(equipmentButton.button.height / 5);
 		
 		consumableButton.Init();
@@ -111,11 +111,10 @@ public class StorePopup : PopupBase, IPopup
 	
     void PopulateItemScrollList(ItemType itemType)
     {
-		if (itemType == ItemType.Automatic || currentItemType == itemType) //dont repopulate if we pass in automatic or if we are already on that type
+		if (itemType == ItemType.A || currentItemType == itemType) //dont repopulate if we pass in automatic or if we are already on that type
 			return;
 		
 		currentItemType = itemType;
-		
         itemScrollList.ClearList(true);
 		
 		Object[] newItems = new Object[0];
@@ -125,23 +124,23 @@ public class StorePopup : PopupBase, IPopup
 		
 		switch(currentItemType)
 		{
-			case ItemType.Equipment:
+			case ItemType.Eqpmnt:
 				
-				loadString += ItemType.Equipment;
+				loadString += ItemType.Eqpmnt;
 				loadType = typeof(Item_Equipment);
 			
 			break;
 				
-			case ItemType.Consumable:
+			case ItemType.Cnsmbl:
 			
-				loadString += ItemType.Consumable;
+				loadString += ItemType.Cnsmbl;
 				loadType = typeof(Item_Consumable);
 			
 			break;
 				
-			case ItemType.ClothingOrGear:
+			case ItemType.ClothGear:
 			
-				loadString += ItemType.ClothingOrGear;
+				loadString += ItemType.ClothGear;
 				loadType = typeof(Item_ClothingOrGear);
 			
 			break;
@@ -153,9 +152,9 @@ public class StorePopup : PopupBase, IPopup
 			
 			break;
 				
-			case ItemType.Decoration:
+			case ItemType.Decor:
 				
-				loadString += ItemType.Decoration;
+				loadString += ItemType.Decor;
 				loadType = typeof(Item_Decoration);
 			
 			break;
@@ -218,7 +217,7 @@ public class StorePopup : PopupBase, IPopup
 		
 		if (UserBase.I.userAssets.IsItemPurchased(button.item) == true) //only purchase if we havent already purchased
 		{
-			if (button.item.GetItemType() != ItemType.Consumable && button.item.GetItemType() != ItemType.Buff)
+			if (button.item.GetItemType() != ItemType.Cnsmbl && button.item.GetItemType() != ItemType.Buff)
 				return PurchaseItemError.AlreadyPurchased;
 		}
 		
@@ -233,7 +232,7 @@ public class StorePopup : PopupBase, IPopup
     {
         if (pointer.evt == GameValues.defaultInputEvent)
         {
-        	PopulateItemScrollList(ItemType.Equipment);
+        	PopulateItemScrollList(ItemType.Eqpmnt);
         }
     }
 	
@@ -241,7 +240,7 @@ public class StorePopup : PopupBase, IPopup
     {
         if (pointer.evt == GameValues.defaultInputEvent)
         {
-        	PopulateItemScrollList(ItemType.Consumable);
+        	PopulateItemScrollList(ItemType.Cnsmbl);
         }
     }
 	
@@ -249,7 +248,7 @@ public class StorePopup : PopupBase, IPopup
     {
         if (pointer.evt == GameValues.defaultInputEvent)
         {
-        	PopulateItemScrollList(ItemType.ClothingOrGear);
+        	PopulateItemScrollList(ItemType.ClothGear);
         }
     }
 	
@@ -265,7 +264,7 @@ public class StorePopup : PopupBase, IPopup
     {
         if (pointer.evt == GameValues.defaultInputEvent)
         {
-			PopulateItemScrollList(ItemType.Decoration);
+			PopulateItemScrollList(ItemType.Decor);
         }
     }
 	
@@ -304,7 +303,7 @@ public class StorePopup : PopupBase, IPopup
 				
 					clickedButton.button.SetColor(Color.green);
 				
-					if (clickedButton.item.GetItemType() != ItemType.Equipment) //Show popup if its not equipment
+					if (clickedButton.item.GetItemType() != ItemType.Eqpmnt) //Show popup if its not equipment
 					{
 						OneButtonPopup temp3= PopupManager.CreatePopup<OneButtonPopup>() as OneButtonPopup;
 						temp3.titleText.Text = "Sorry!";
@@ -362,7 +361,7 @@ public class StorePopup : PopupBase, IPopup
 					//actually purchase the item. If this is equipment we will go straight into placement mode
 					UserBase.I.userAssets.OnPurchaseItem(clickedButton.item);
 				
-					if (clickedButton.item.GetItemType() == ItemType.Equipment)
+					if (clickedButton.item.GetItemType() == ItemType.Eqpmnt)
 					{
 						Item_GridHelper clickedGridObject = (Item_GridHelper)clickedButton.item; //make sure this item is a GridHelper
 					

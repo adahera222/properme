@@ -129,16 +129,8 @@ public sealed class DownloadableObjectHandler : MonoBehaviour
 		if (timeoutRoutine != null)
 			timeoutRoutine.Kill();
 		
-		if (failedObject.downloadObject.GetComponent(typeof(GridBlockValues)) != null) //manually do this
-		{
-			OnAllItemsDownloadedSuccessfully(); //this needs to be the last item to work. Basically this one can fail, so if it does we will say its successful anyway
-			return;
-		}
-		else
-		{
-			if (onLoadCompeletion != null)
+		if (onLoadCompeletion != null)
 				onLoadCompeletion(false);
-		}
 		
 		ScreenLog.AddMessage("Error downlaoding " + failedObject.downloadObject.XMLFileName + " cant load game");
 	}

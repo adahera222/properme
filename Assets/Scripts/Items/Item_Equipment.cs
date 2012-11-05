@@ -44,7 +44,7 @@ public class Item_Equipment : Item_GridHelper
 	
 	public override ItemType GetItemType()
 	{
-		return ItemType.Equipment;
+		return ItemType.Eqpmnt;
 	}
 	
 	protected override void ClickDelegate(ref POINTER_INFO pointer) 

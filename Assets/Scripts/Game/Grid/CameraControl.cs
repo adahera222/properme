@@ -161,7 +161,7 @@ public class CameraControl : MonoBehaviour
 														u20.myBlock.myItem.Equals(currentDragObject) == true
 													select u20;*/
 					
-					foreach(GridBlockItem block in GridBlockValues.I.itemContainer.gridBlockItems) //TODO could find a faster way to do this instead of looping through all blocks
+					foreach(GridBlockItem block in UserBase.I.gridBlocksContainer.gridBlockItems) //TODO could find a faster way to do this instead of looping through all blocks
 					{
 						if (block.myBlock.Equals(freeBlock) == false &&
 							block.myBlock.myItem != null &&

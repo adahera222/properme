@@ -7,7 +7,7 @@ public class CreateItem : ScriptableWizard
 	public string itemName = "Enter New Item Name";
 	public string itemDescription = "Enter item description";
 	
-	public ItemType itemType = ItemType.ClothingOrGear;
+	public ItemType itemType = ItemType.ClothGear;
 	
 	public PurchaseInto itemPurchaseInfo;
 	
@@ -22,7 +22,7 @@ public class CreateItem : ScriptableWizard
 	
     void OnWizardCreate ()
 	{
-		if (itemType == ItemType.Automatic)
+		if (itemType == ItemType.A)
 		{
 			EditorUtility.DisplayDialog("OH NO!", "Item type cannot be Automatic", "K");
 			return;
@@ -59,19 +59,19 @@ public class CreateItem : ScriptableWizard
 		
 		switch(itemType)
 		{
-			case ItemType.Equipment:
+			case ItemType.Eqpmnt:
 				
 				g.AddComponent(typeof(Item_Equipment));
 			
 			break;
 				
-			case ItemType.Consumable:
+			case ItemType.Cnsmbl:
 				
 				g.AddComponent(typeof(Item_Consumable));
 			
 			break;
 				
-			case ItemType.ClothingOrGear:
+			case ItemType.ClothGear:
 				
 				g.AddComponent(typeof(Item_ClothingOrGear));
 			
@@ -83,7 +83,7 @@ public class CreateItem : ScriptableWizard
 			
 			break;
 				
-			case ItemType.Decoration:
+			case ItemType.Decor:
 				
 				g.AddComponent(typeof(Item_Decoration));
 			

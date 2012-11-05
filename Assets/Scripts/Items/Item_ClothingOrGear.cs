@@ -33,6 +33,6 @@ public class Item_ClothingOrGear : Item_Base
 	
 	public override ItemType GetItemType()
 	{
-		return ItemType.ClothingOrGear;
+		return ItemType.ClothGear;
 	}
 }

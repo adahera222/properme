@@ -35,4 +35,4 @@ foreach $file( @files )
 $installPath = $ARGV[0];
 $currDir = `pwd`;
 chomp $currDir;
-`python2.6 \'$currDir/Assets/Editor/runner.py\' \'$installPath\'`;
+

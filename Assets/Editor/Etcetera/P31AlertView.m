@@ -560,5 +560,4 @@ CGRect TTScreenBounds()
 	[self popupAlertView];
 }
 
-
 @end

@@ -64,13 +64,6 @@
      <Compile Include="Assets\Plugins\FingerGestures\FingerGesturesPrefabs.cs" />
      <Compile Include="Assets\Plugins\FingerGestures\MouseGestures.cs" />
      <Compile Include="Assets\Plugins\FingerGestures\TouchScreenGestures.cs" />
-     <Compile Include="Assets\Plugins\StoreKit\StoreKitBinding.cs" />
-     <Compile Include="Assets\Plugins\StoreKit\StoreKitDownload.cs" />
-     <Compile Include="Assets\Plugins\StoreKit\StoreKitManager.cs" />
-     <Compile Include="Assets\Plugins\StoreKit\StoreKitProduct.cs" />
-     <Compile Include="Assets\Plugins\StoreKit\StoreKitTransaction.cs" />
-     <Compile Include="Assets\Plugins\StoreKit\testSupport\StoreKitEventListener.cs" />
-     <Compile Include="Assets\Plugins\StoreKit\testSupport\StoreKitGUIManager.cs" />
      <Compile Include="Assets\Standard Assets\Character Controllers\Sources\Scripts\MouseLook.cs" />
      <None Include="Assets\ISerializableBackup\PrefixValues.xml" />
      <None Include="Assets\Shaders\Mobile\Miscellaneous Shaders\Mobile Background.shader" />

@@ -120,6 +120,9 @@
  <Reference Include="Assets\Editor\Prime31\P31MenuItem">
  <HintPath>Assets\Editor\Prime31\P31MenuItem.dll</HintPath>
  </Reference>
+ <Reference Include="Assets\Editor\Prime31\Prime31MenuItem">
+ <HintPath>Assets\Editor\Prime31\Prime31MenuItem.dll</HintPath>
+ </Reference>
  <Reference Include="Assets\Plugins\JsonFx.Json">
  <HintPath>Assets\Plugins\JsonFx.Json.dll</HintPath>
  </Reference>
@@ -134,9 +137,6 @@
  </Reference>
  <Reference Include="Assets\ThirdParty\HOTween\Plugins\Editor\HOTweenV1_Editor">
  <HintPath>Assets\ThirdParty\HOTween\Plugins\Editor\HOTweenV1_Editor.dll</HintPath>
- </Reference>
- <Reference Include="Assets\Editor\Prime31\Prime31MenuItem">
- <HintPath>Assets\Editor\Prime31\Prime31MenuItem.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>

@@ -6,7 +6,7 @@
       <File FileName="Assets/Scripts/Game/Grid/Grid.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/ISerializable/Items/User/UserAssets.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/ISerializable/Items/User/UserStats.cs" Line="1" Column="1" />
-      <File FileName="Assets/Plugins/StoreKit/testSupport/StoreKitGUIManager.cs" Line="35" Column="33" />
+      <File FileName="Assets/Plugins/StoreKit/testSupport/StoreKitGUIManager.cs" Line="42" Column="95" />
       <File FileName="Assets/Plugins/StoreKit/testSupport/StoreKitEventListener.cs" Line="45" Column="3" />
       <File FileName="Assets/Plugins/StoreKit/StoreKitBinding.cs" Line="28" Column="31" />
       <File FileName="Assets/Plugins/StoreKit/StoreKitDownload.cs" Line="40" Column="3" />
